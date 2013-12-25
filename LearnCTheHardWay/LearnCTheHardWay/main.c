@@ -10,9 +10,12 @@
 
 int main(int argc, const char * argv[])
 {
+    /* Warning: This program is wrong on purpose. */
+    int age = 10;
+    int height;
 
-    // insert code here...
-    printf("Hello, World!\n");
+    printf("I am %d years old.\n");
+    printf("I am %d inches tall.\n", height);
     return 0;
 }
 
