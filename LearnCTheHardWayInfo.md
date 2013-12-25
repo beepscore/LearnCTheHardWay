@@ -105,3 +105,19 @@ I have a first name Zed.
 I have a last name Shaw.
 [1]    2937 segmentation fault  ./ex6
 
+### Exercise 7
+
+ex7.c:33:40: warning: format specifies type 'char *' but the argument has type 'char' [-Wformat]
+    printf("nul_byte as string %s.\n", nul_byte);
+                               ~~      ^~~~~~~~
+                               %c
+1 warning generated.
+➜  LearnCTheHardWay git:(master) ✗ ./ex7
+You have 100 bugs at the imaginary rate of 1.200000.
+The entire universe has 1073741824 bugs.
+You are expected to have 120.000000 bugs.
+That is only a 1.117587e-07 portion of the universe.
+Which means you should care 0%.
+nul_byte as char .
+nul_byte as string (null).
+
