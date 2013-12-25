@@ -10,6 +10,7 @@ http://c.learncodethehardway.org/book/
 
 ### Exercise 1
 Write file ex1.c
+
 In terminal
 ➜  LearnCTheHardWay git:(master) make ex1
 cc     ex1.c   -o ex1
@@ -21,6 +22,9 @@ ex1.c:3:5: warning: implicit declaration of function 'puts' is invalid in C99 [-
 
 Fix this by #import <stdio.h>
 http://stackoverflow.com/questions/16876984/gcc-warning-implicit-declaration-of-function-puts-is-invalid-in-c99
+
+To execute compiled file
+    $ ./ex1
 
 ### Exercise 2
 make ex1 figures out what to do.
@@ -35,6 +39,7 @@ Apple LLVM version 5.0 (clang-500.2.75) (based on LLVM 3.3svn)
 Target: x86_64-apple-darwin12.5.0
 Thread model: posix
 
+Edit Makefile.
 Makefile must have tabs only, no spaces!!!!!!
 
 ### Exercise 3
