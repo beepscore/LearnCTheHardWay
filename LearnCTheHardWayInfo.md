@@ -126,3 +126,12 @@ ex7.c:12:83: warning: overflow in expression; result is 0 with type 'long' [-Win
     long universe_of_defects = 1L * 1024L * 1024L * 1024L * 1024L * 1024L * 1024L * 1024L;
 prints
     The entire universe has 0 bugs.
+
+#### change type to unsigned long and adjust value
+    unsigned long universe_of_defects = 1L * 1024L * 1024L * 1024L * 1024L * 1024L * 1024L * 1024L;
+
+The entire universe has 0 bugs.
+u_minus1 -1.
+u_plus1 1.
+That is only a inf portion of the universe.
+
