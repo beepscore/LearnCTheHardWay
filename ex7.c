@@ -14,9 +14,9 @@ int main(int argc, char *argv[])
     unsigned long universe_of_defects = 1L * 1024L * 1024L * 1024L * 1024L * 1024L * 1024L * 1024L;
     unsigned long u_minus1 = universe_of_defects - 1;
     unsigned long u_plus1 = universe_of_defects + 1;
-    printf("The entire universe has %ld bugs.\n", universe_of_defects);
-    printf("u_minus1 %ld.\n", u_minus1);
-    printf("u_plus1 %ld.\n", u_plus1);
+    printf("The entire universe has %u bugs.\n", universe_of_defects);
+    printf("u_minus1 %u.\n", u_minus1);
+    printf("u_plus1 %u.\n", u_plus1);
 
     double expected_bugs = bugs * bug_rate;
     printf("You are expected to have %f bugs.\n",
