@@ -43,3 +43,31 @@ Makefile must have tabs only, no spaces!!!!!!
 
 3 corresponds to man section 3, for C library functions
 http://stackoverflow.com/questions/62936/what-does-the-number-in-parentheses-shown-after-unix-command-names-mean
+
+### Exercise 4
+
+#### valgrind
+www.valgrind.org
+Currently doesn't work with OS X Mavericks 10.9
+
+#### Command line Clang static analyzer
+I couldn't find scan-build.
+http://clang-analyzer.llvm.org/scan-build.html
+
+    $ scan-build make
+
+Mountain Lion installed command line tools to /usr/bin and other system software directories.
+In Mavericks Xcode 5 bundles command line tools in /Applications/Xcode.app e.g.
+    /Applications/Xcode.app/Contents/Developer/usr/bin
+
+Separate download will install to /Library/Developer/CommandLineTools/usr/bin
+
+You can install both Xcode 5.0.x and the separate Xcode command line tools in Mavericks without a problem,
+but Mavericks will prefer to use the tools that are bundled in /Applications/Xcode.app
+and will ignore the tools installed into /Library/Developer unless Xcode.app is removed from the Mac.
+https://derflounder.wordpress.com/2013/11/15/xcode-command-line-tools-included-with-xcode-5-0-x-on-mavericks/
+
+#### Xcode
+Even though tutorial wants to avoid IDE, use Xcode for now.
+In Xcode File / Project / New Project / OS X / Application / Command Line Tool.
+Name project LearnCTheHardWay.
