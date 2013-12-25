@@ -76,3 +76,32 @@ https://derflounder.wordpress.com/2013/11/15/xcode-command-line-tools-included-w
 Even though tutorial wants to avoid IDE, use Xcode for now.
 In Xcode File / Project / New Project / OS X / Application / Command Line Tool.
 Name project LearnCTheHardWay.
+
+### Exercise 6
+Put arguments in wrong order:
+
+    printf("My whole name is %s %c. %s.\n", initial, first_name, last_name);
+
+vim syntax checker shows warning.
+
+➜  LearnCTheHardWay git:(master) ✗ make ex6
+cc -Wall -g    ex6.c   -o ex6
+ex6.c:19:45: warning: format specifies type 'char *' but the argument has type 'char' [-Wformat]
+    printf("My whole name is %s %c. %s.\n", initial, first_name, last_name);
+                             ~~             ^~~~~~~
+                             %c
+ex6.c:19:54: warning: format specifies type 'int' but the argument has type 'char *' [-Wformat]
+    printf("My whole name is %s %c. %s.\n", initial, first_name, last_name);
+                                ~~                   ^~~~~~~~~~
+                                %s
+2 warnings generated.
+
+➜  LearnCTheHardWay git:(master) ✗ ./ex6
+You are 100 miles away.
+You have 2.345000 levels of power.
+You have 56789.453200 awesome super powers.
+I have an initial A.
+I have a first name Zed.
+I have a last name Shaw.
+[1]    2937 segmentation fault  ./ex6
+
