@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
             care_percentage);
 
     printf("nul_byte as char %c.\n", nul_byte);
-    printf("nul_byte as string %s.\n", nul_byte);
+    // printf("nul_byte as string %s.\n", nul_byte);
 
     return 0;
 }
