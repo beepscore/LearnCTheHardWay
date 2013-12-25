@@ -1,6 +1,9 @@
 #include <stdio.h>
 
-/* This is a comment */
+/** @param argc is the argument count, the number of arguments in argv
+ *  @param argv[] is an array arguments, each of type char *
+ *  @return return code
+ **/
 int main(int argc, char *argv[])
 {
     int distance = 100;
