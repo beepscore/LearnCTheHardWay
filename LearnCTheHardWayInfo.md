@@ -121,3 +121,8 @@ Which means you should care 0%.
 nul_byte as char .
 nul_byte as string (null).
 
+#### increase universe_of_defects until compiler warns
+ex7.c:12:83: warning: overflow in expression; result is 0 with type 'long' [-Winteger-overflow]
+    long universe_of_defects = 1L * 1024L * 1024L * 1024L * 1024L * 1024L * 1024L * 1024L;
+prints
+    The entire universe has 0 bugs.

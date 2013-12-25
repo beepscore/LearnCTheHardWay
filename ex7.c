@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
     printf("You have %d bugs at the imaginary rate of %f.\n",
             bugs, bug_rate);
 
-    long universe_of_defects = 1L * 1024L * 1024L * 1024L;
+    long universe_of_defects = 1L * 1024L * 1024L * 1024L * 1024L * 1024L * 1024L * 1024L;
     // %ld long decimal
     printf("The entire universe has %ld bugs.\n", universe_of_defects);
 
