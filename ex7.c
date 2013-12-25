@@ -11,6 +11,8 @@ int main(int argc, char *argv[])
 
     // long universe_of_defects = 1L * 1024L * 1024L * 1024L * 1024L * 1024L * 1024L * 1024L;
     // %ld long decimal
+    // http://stackoverflow.com/questions/7152759/what-happens-when-i-assign-a-negative-value-to-an-unsigned-int?rq=1
+    // http://en.wikipedia.org/wiki/Two's_complement
     unsigned long universe_of_defects = 1L * 1024L * 1024L * 1024L * 1024L * 1024L * 1024L * 1024L;
     unsigned long u_minus1 = universe_of_defects - 1;
     unsigned long u_plus1 = universe_of_defects + 1;
