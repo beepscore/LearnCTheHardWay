@@ -8,14 +8,14 @@
 
 #include <stdio.h>
 
+/* This is a comment */
 int main(int argc, const char * argv[])
 {
-    /* Warning: This program is wrong on purpose. */
-    int age = 10;
-    int height;
+    int distance = 100;
 
-    printf("I am %d years old.\n");
-    printf("I am %d inches tall.\n", height);
+    // this is also a comment
+    printf("You are %d miles away.\n", distance);
+    
     return 0;
 }
 
