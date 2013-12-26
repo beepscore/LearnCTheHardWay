@@ -14,10 +14,16 @@ int main(int argc, char *argv[])
     char *states[] = { "California", "Oregon", "Washington", "Texas" };
 
     int num_states = 4;
-    i = 0; // watch for this
-    while (i < num_states) {
+    // i = 0; // watch for this
+    // while (i < num_states) {
+    //     printf("state %d: %s\n", i, states[i]);
+    //     i++;
+    // }
+
+    i = num_states - 1;
+    while (i >= 0) {
         printf("state %d: %s\n", i, states[i]);
-        i++;
+        i--;
     }
 
     return 0;
