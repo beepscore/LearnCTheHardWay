@@ -20,6 +20,12 @@ int main(int argc, char *argv[])
             sizeof(areas) / sizeof(int));
     printf("The first area is %d, the 2nd %d.\n",
             areas[0], areas[1]);
+    areas[0] = 100;
+    printf("The first area is %d.\n", areas[0]);
+    // 'Z' ascii code is 90
+    areas[0] = 'Z';
+    printf("The first area is %d.\n", areas[0]);
+    // printf("The eleventh area is %d.\n", areas[10]);
 
     printf("The size of a char: %ld\n", sizeof(char));
     // sizeof name is 4, "Zed" plus null terminator '\0'
@@ -35,6 +41,10 @@ int main(int argc, char *argv[])
 
     printf("name=\"%s\" and full_name=\"%s\"\n",
             name, full_name);
+    name[1] = 'o';
+    printf("name=\"%s\"\n", name);
+    full_name[9] = 'i';
+    printf("full_name=\"%s\"\n", full_name);
 
     return 0;
 }
