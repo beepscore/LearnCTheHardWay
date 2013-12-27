@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <ctype.h>
+#include <string.h>
 
 // forward declarations
-void print_digits(char arg[]);
-void print_letters(char arg[]);
+void print_digits(char arg[], int length);
+void print_letters(char arg[], int length);
 void print_letter(char ch);
 void print_digit(char ch);
 
@@ -13,24 +14,24 @@ void print_arguments(int argc, char *argv[])
 
     printf("print letters\n");
     for (i = 0; i < argc; i++) {
-        print_letters(argv[i]);
+        print_letters(argv[i], strlen(argv[i]));
     }
 
     printf("\n");
 
     printf("print digits\n");
     for (i = 0; i < argc; i++) {
-        print_digits(argv[i]);
+        print_digits(argv[i], strlen(argv[i]));
     }
 }
 
 /** for each letter in string argument,
  *  prints letter and ASCII integer code
  */
-void print_letters(char arg[])
+void print_letters(char arg[], int length)
 {
     int i = 0;
-    for (i = 0; arg[i] != '\0'; i++) {
+    for (i = 0; i < length; i++) {
         print_letter(arg[i]);
     }
     printf("\n");
@@ -39,10 +40,10 @@ void print_letters(char arg[])
 /** for each digit in string argument,
  *  prints digit and ASCII integer code
  */
-void print_digits(char arg[])
+void print_digits(char arg[], int length)
 {
     int i = 0;
-    for (i = 0; arg[i] != '\0'; i++) {
+    for (i = 0; i < length; i++) {
         print_digit(arg[i]);
     }
     printf("\n");
