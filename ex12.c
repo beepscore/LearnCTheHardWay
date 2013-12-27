@@ -4,6 +4,8 @@ int main(int argc, char *argv[])
 {
     int i = 0;
 
+    // http://en.wikipedia.org/wiki/Operators_in_C_and_C%2B%2B#Logical_operators
+
     if (argc == 1) {
         printf("You didn't add any arguments. You suck.\n");
     } else if (argc > 1 && argc < 4) {
