@@ -5,7 +5,7 @@ int main(int argc, char *argv[])
     int i = 0;
 
     if (argc == 1) {
-        printf("You only have one argument. You suck.\n");
+        printf("You didn't add any arguments. You suck.\n");
     } else if (argc > 1 && argc < 4) {
         printf("Here's your arguments:\n");
 
