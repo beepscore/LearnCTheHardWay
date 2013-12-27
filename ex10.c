@@ -44,10 +44,18 @@ int main(int argc, char *argv[])
     int num_states = 4;
 
     for (i = 0; i < num_states; i++) {
+
+        // Do ex13 extra credit. Use if and break to break from a loop
+        // if (2 == i) {
+            // continue ends current iteration
+            // break exits loop
+            // break;
+        // }
+
         printf("state %d: %s\n", i, states[i]);
     }
 
-    //     ➜  LearnCTheHardWay git:(master) ✗ ./ex10 'foo' 'bar'
+    // $ ./ex10 'foo' 'bar'
     // argv[0]: ./ex10
     // arg 1: foo
     // arg 2: bar
