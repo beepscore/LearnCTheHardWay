@@ -1,9 +1,7 @@
 #include <stdio.h>
 #include <ctype.h>
-#include <stdbool.h>
 
 // forward declarations
-bool can_print_it(char ch);
 void print_digits(char arg[]);
 void print_letters(char arg[]);
 void print_letter(char ch);
@@ -50,20 +48,12 @@ void print_digits(char arg[])
     printf("\n");
 }
 
-/** return true if ch is alpha or blank
- *  else return false
- */
-bool can_print_it(char ch)
-{
-    return isalpha(ch) || isblank(ch);
-}
-
 /** print character if it is alpha or blank
  *  else don't print
  */
 void print_letter(char ch)
 {
-    if (can_print_it(ch)) {
+    if (isalpha(ch) || isblank(ch)) {
         printf("'%c' == %d ", ch, ch);
     }
 }
