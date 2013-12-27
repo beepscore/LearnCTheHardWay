@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)http://c.learncodethehardway.org/book/krcritique.html -->
+<html class=" js no-touch svg inlinesvg svgclippaths no-ie8compat js no-touch svg inlinesvg svgclippaths no-ie8compat" lang="en" style=""><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+
+  <!-- Set the viewport width to device width for mobile -->
+  <meta name="viewport" content="width=device-width">
+
+  
+<meta name="generator" content="Docutils 0.10: http://docutils.sourceforge.net/">
+<title>Deconstructing K&amp;RC</title>
+
+  <!-- Included CSS Files (Compressed) -->
+  <link rel="stylesheet" href="http://c.learncodethehardway.org/book/stylesheets/foundation.min.css">
+  <link rel="stylesheet" href="http://c.learncodethehardway.org/book/stylesheets/pygments.css">
+  <link rel="stylesheet" href="http://c.learncodethehardway.org/book/stylesheets/app.css">
+
+  <script type="text/javascript" async="" src="./Deconstructing K&RC_files/ga.js"></script><script src="./Deconstructing K&RC_files/modernizr.foundation.js"></script>
+
+  <!-- IE Fix for HTML5 Tags -->
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+<style type="text/css"></style></head>
+<body>
+
+  <div class="row">
+      <div class="twelve columns" id="header">
+          <div class="topbar">
+              <div class="global-nav">
+                  <div class="four columns" id="header-block">
+                      <p><a href="http://c.learncodethehardway.org/">Learn C The Hard Way</a></p>
+                  </div>
+                  <div class="four columns" id="header-block">
+                      <p style="color: white"><a href="http://inculcate.me/school/courses/4/">Online Video Course Plus PDFs $29</a></p>
+                  </div>
+                  <div class="four columns" id="header-block">
+                      <p>
+                      <a href="http://learnpythonthehardway.org/">Python</a> |
+                      <a href="http://ruby.learncodethehardway.org/">Ruby</a> |
+                      <a href="http://c.learncodethehardway.org/">C</a> |
+                      <a href="http://sql.learncodethehardway.org/">SQL</a> |
+                      <a href="http://regex.learncodethehardway.org/">Regex</a> 
+                      </p>
+                  </div>
+              </div>
+          </div>
+          <h1 class="title">Deconstructing <tt class="docutils literal">K&amp;RC</tt></h1>
+      </div>
+  </div>
+
+  <div class="row">
+    <div class="eleven columns">
+        <p>When I was a kid I read this awesome book called "The C Programming Language"
+by the language's creators, Brian Kernighan and Dennis Ritchie.  This book
+taught me and many people of my generation, and a generation before, how to
+write C code.  You talk to anyone, whether they know C or not, and they'll say,
+"You can't beat <tt class="docutils literal">K&amp;RC</tt>. It's the best C book."  It is an established piece of
+programmer lore that is not soon to die.</p>
+<p>I myself believed that until I started writing this book. You see, <tt class="docutils literal">K&amp;RC</tt> is
+actually riddled with bugs and bad style.  Its age is no excuse. These were
+bugs when they wrote the first printing, and the 42nd printing.  I hadn't
+actually realized just how bad most of the code was in this book and
+recommended it to many people.  After reading through it for just an hour I
+decided that it needs to be taken down from its pedestal and relegated to
+history rather than vaunted as state of the art.</p>
+<p>I believe it is time to lay this book to rest, but I want to use it as an
+exercise for you in finding hacks, attacks, defects, and bugs by going through
+<tt class="docutils literal">K&amp;RC</tt> to break all the code.  That's right, you are going to destroy this
+sacred cow for me, and you're going to have no problem doing it.  When you are
+done doing this, you will have a finely honed eye for defect.  You will also
+have an informed opinion of the book's actual quality, and will be able to make
+your own decisions on how to use the knowledge it contains.</p>
+<p>In this chapter we will use all the knowledge you've gained from this book, and
+spend it reviewing the code in <tt class="docutils literal">K&amp;RC</tt>.  What we will do is take many pieces
+of code from the book, find all the bugs in it, and write a unit test that
+<em>exercises</em> the bugs.  We'll then run this test under Valgrind to get
+statistics and data, and then we'll fix the bugs with a redesign.</p>
+<p>This will obviously be a long chapter so I'm going to only do a handful of
+these and then I'm going have you do the rest.  I'll provide a guide that is
+each page, with the code on it, and hints to the bugs that it has.  Your job is
+to then tear that piece of code apart and try to think like an attacker trying
+to break the code.</p>
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p>As you read this, if you feel that I am being disrespectful to the
+authors, then that's not my intent.  I respect the authors more than
+anything you know and owe them a debt of gratitude for writing their book.
+My criticisms here are both for educational purposes of teaching people
+<em>modern</em> C code, and to destroy the belief in their work as a
+item of worship that cannot be questioned.</p>
+<p class="last">However, if when you read this you have feelings of me insulting <em>you</em>
+then just stop reading.  You will gain nothing from this chapter but personal
+grief because you've attached your identity to <tt class="docutils literal">K&amp;RC</tt> and my criticisms will
+only be taken personally.</p>
+</div>
+<div class="section" id="an-overall-critique-of-correctness">
+<h1>An Overall Critique Of Correctness</h1>
+<p>The primary problem <tt class="docutils literal">K&amp;RC</tt> has is its view of "correctness" comes from the
+first system it was used on: <em>Unix</em>.  In the world of Unix software programs
+have a particular set of properties:</p>
+<ul class="simple">
+<li>Programs are started and then exit, making resource allocation easier.</li>
+<li>Most functions are only called by other parts of the same program in set ways.</li>
+<li>The inputs to the program are limited to "expert" restricted users.</li>
+</ul>
+<p>In the context of this 1970's computing style, <tt class="docutils literal">K&amp;RC</tt> is actually correct.
+As long as only trusted people run complete cohesive programs that exit and
+clean up all their resources then their code is fine.</p>
+<p>Where <tt class="docutils literal">K&amp;RC</tt> runs into problems is when the functions or code snippets are
+taken <em>out of the book</em> and used in other programs.  Once you take many of
+these code snippets and try use them in some other program they fall apart.
+They then have blatant buffer overflows, bugs, and problems that a beginner
+will trip over.</p>
+<p>Another problem is that software these days doesn't exit right away, but
+instead it stays running for long periods of time because they're servers,
+desktop applications and mobile applications.  The old style of "leaving the
+cleanup to the OS" doesn't work in the modern world the way it did back in the
+day.</p>
+<p>The final problem though is that no software lives in a vacuum anymore.
+Software is now frequently attacked by people over network connections in an
+attempt to gain special privilege or simple street cred.  The idea that "nobody
+will ever do that" is dead, and actually that's probably the first thing
+somebody will do.</p>
+<p>The best way to summarize the problem of <tt class="docutils literal">K&amp;RC</tt> "correctness" is with an
+example from English.  Imagine if you have the pair of sentences, "Jack and
+Jill went up the hill.  He fell down."  Well, from context clues you know that
+"He" means Jack.  However, if you have that sentence on its own it's not clear
+who "He" is.  Now, if you put that sentence at the end of another sentence you
+can get an unclear pronoun reference: "Jack and Frank went up the hill. He fell
+down."  Which "He" are we talking about in that sentence?</p>
+<p>This is how the code in <tt class="docutils literal">K&amp;RC</tt> works.  As long as that code is not used in
+other programs without serious analysis of the entire software then it works.
+The second you take many of the functions out and try to use them in other
+systems they fall apart.  And, what's the point of a book full of code you
+can't actually use in your own programs?</p>
+<div class="section" id="a-first-demonstration-defect">
+<h2>A First Demonstration Defect</h2>
+<p>The following <tt class="docutils literal">copy</tt> function is found in the very first chapter and is an
+example of copying two strings.  Here's a new source file to demonstrate the
+defects in this function.</p>
+<div class="highlight"><pre><a name="code--krc--1.9-1.c-pyg.html-1"></a><span class="cp">#include &lt;stdio.h&gt;</span>
+<a name="code--krc--1.9-1.c-pyg.html-2"></a><span class="cp">#include &lt;assert.h&gt;</span>
+<a name="code--krc--1.9-1.c-pyg.html-3"></a><span class="cp">#include &lt;stdlib.h&gt;</span>
+<a name="code--krc--1.9-1.c-pyg.html-4"></a>
+<a name="code--krc--1.9-1.c-pyg.html-5"></a><span class="cp">#define MAXLINE 10 </span><span class="c1">// in the book this is 1000</span>
+<a name="code--krc--1.9-1.c-pyg.html-6"></a>
+<a name="code--krc--1.9-1.c-pyg.html-7"></a><span class="kt">void</span> <span class="nf">copy</span><span class="p">(</span><span class="kt">char</span> <span class="n">to</span><span class="p">[],</span> <span class="kt">char</span> <span class="n">from</span><span class="p">[])</span>
+<a name="code--krc--1.9-1.c-pyg.html-8"></a><span class="p">{</span>
+<a name="code--krc--1.9-1.c-pyg.html-9"></a>    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+<a name="code--krc--1.9-1.c-pyg.html-10"></a>
+<a name="code--krc--1.9-1.c-pyg.html-11"></a>    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<a name="code--krc--1.9-1.c-pyg.html-12"></a>    <span class="k">while</span><span class="p">((</span><span class="n">to</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">from</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">!=</span> <span class="sc">'\0'</span><span class="p">)</span>
+<a name="code--krc--1.9-1.c-pyg.html-13"></a>        <span class="o">++</span><span class="n">i</span><span class="p">;</span>
+<a name="code--krc--1.9-1.c-pyg.html-14"></a><span class="p">}</span>
+<a name="code--krc--1.9-1.c-pyg.html-15"></a>
+<a name="code--krc--1.9-1.c-pyg.html-16"></a><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<a name="code--krc--1.9-1.c-pyg.html-17"></a><span class="p">{</span>
+<a name="code--krc--1.9-1.c-pyg.html-18"></a>    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+<a name="code--krc--1.9-1.c-pyg.html-19"></a>
+<a name="code--krc--1.9-1.c-pyg.html-20"></a>    <span class="c1">// use heap memory as many modern systems do</span>
+<a name="code--krc--1.9-1.c-pyg.html-21"></a>    <span class="kt">char</span> <span class="o">*</span><span class="n">line</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="n">MAXLINE</span><span class="p">);</span>
+<a name="code--krc--1.9-1.c-pyg.html-22"></a>    <span class="kt">char</span> <span class="o">*</span><span class="n">longest</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="n">MAXLINE</span><span class="p">);</span>
+<a name="code--krc--1.9-1.c-pyg.html-23"></a>
+<a name="code--krc--1.9-1.c-pyg.html-24"></a>    <span class="n">assert</span><span class="p">(</span><span class="n">line</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="n">longest</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="s">"memory error"</span><span class="p">);</span>
+<a name="code--krc--1.9-1.c-pyg.html-25"></a>
+<a name="code--krc--1.9-1.c-pyg.html-26"></a>    <span class="c1">// initialize it but make a classic "off by one" error</span>
+<a name="code--krc--1.9-1.c-pyg.html-27"></a>    <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">MAXLINE</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+<a name="code--krc--1.9-1.c-pyg.html-28"></a>        <span class="n">line</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="sc">'a'</span><span class="p">;</span>
+<a name="code--krc--1.9-1.c-pyg.html-29"></a>    <span class="p">}</span>
+<a name="code--krc--1.9-1.c-pyg.html-30"></a>
+<a name="code--krc--1.9-1.c-pyg.html-31"></a>    <span class="c1">// cause the defect</span>
+<a name="code--krc--1.9-1.c-pyg.html-32"></a>    <span class="n">copy</span><span class="p">(</span><span class="n">longest</span><span class="p">,</span> <span class="n">line</span><span class="p">);</span>
+<a name="code--krc--1.9-1.c-pyg.html-33"></a>
+<a name="code--krc--1.9-1.c-pyg.html-34"></a>    <span class="n">free</span><span class="p">(</span><span class="n">line</span><span class="p">);</span>
+<a name="code--krc--1.9-1.c-pyg.html-35"></a>    <span class="n">free</span><span class="p">(</span><span class="n">longest</span><span class="p">);</span>
+<a name="code--krc--1.9-1.c-pyg.html-36"></a>
+<a name="code--krc--1.9-1.c-pyg.html-37"></a>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<a name="code--krc--1.9-1.c-pyg.html-38"></a><span class="p">}</span>
+</pre></div><p>In the above example, I'm doing something that is fairly common: switching from
+using stack allocation to heap allocation with <tt class="docutils literal">malloc</tt>.  What happens is,
+typically <tt class="docutils literal">malloc</tt> returns memory from the heap, and so the bytes after it
+are not initialized.  Then you see me use a loop to accidentally initialize it
+wrong.  This is a common defect, and one of the reasons we avoided classic
+style C strings in this book.  You could also have this bug in programs that
+read from files, sockets, or other external resources.  It is a <em>very</em> common
+bug, probably the most common in the world.</p>
+<p>Before the switch to heap memory, this program probably ran just fine because
+the stack allocated memory will probably have a <tt class="docutils literal">'\0'</tt> character at the end
+on accident.  In fact, it would appear to run fine almost always since it just
+runs and exits quickly.</p>
+<p>What's the effect of running this new program with <tt class="docutils literal">copy</tt> used wrong?</p>
+<div class="highlight"><pre><a name="code--krc--1.9-1.sh-session-pyg.html-1"></a><span class="gp">$</span> make 1.9-1
+<a name="code--krc--1.9-1.sh-session-pyg.html-2"></a><span class="go">cc     1.9-1.c   -o 1.9-1</span>
+<a name="code--krc--1.9-1.sh-session-pyg.html-3"></a><span class="gp">$</span> ./1.9-1
+<a name="code--krc--1.9-1.sh-session-pyg.html-4"></a><span class="gp">$</span>
+<a name="code--krc--1.9-1.sh-session-pyg.html-5"></a><span class="gp">$</span> valgrind ./1.9-1
+<a name="code--krc--1.9-1.sh-session-pyg.html-6"></a><span class="go">==2162== Memcheck, a memory error detector</span>
+<a name="code--krc--1.9-1.sh-session-pyg.html-7"></a><span class="go">==2162== Copyright (C) 2002-2010, and GNU GPL'd, by Julian Seward et al.</span>
+<a name="code--krc--1.9-1.sh-session-pyg.html-8"></a><span class="go">==2162== Using Valgrind-3.6.0.SVN-Debian and LibVEX; rerun with -h for copyright info</span>
+<a name="code--krc--1.9-1.sh-session-pyg.html-9"></a><span class="go">==2162== Command: ./1.9-1</span>
+<a name="code--krc--1.9-1.sh-session-pyg.html-10"></a><span class="go">==2162== </span>
+<a name="code--krc--1.9-1.sh-session-pyg.html-11"></a><span class="go">==2162== Invalid read of size 1</span>
+<a name="code--krc--1.9-1.sh-session-pyg.html-12"></a><span class="go">==2162==    at 0x4005C0: copy (in /home/zedshaw/projects/books/learn-c-the-hard-way/code/krc/1.9-1)</span>
+<a name="code--krc--1.9-1.sh-session-pyg.html-13"></a><span class="go">==2162==    by 0x400651: main (in /home/zedshaw/projects/books/learn-c-the-hard-way/code/krc/1.9-1)</span>
+<a name="code--krc--1.9-1.sh-session-pyg.html-14"></a><span class="go">==2162==  Address 0x51b104a is 0 bytes after a block of size 10 alloc'd</span>
+<a name="code--krc--1.9-1.sh-session-pyg.html-15"></a><span class="go">==2162==    at 0x4C2815C: malloc (vg_replace_malloc.c:236)</span>
+<a name="code--krc--1.9-1.sh-session-pyg.html-16"></a><span class="go">==2162==    by 0x4005E6: main (in /home/zedshaw/projects/books/learn-c-the-hard-way/code/krc/1.9-1)</span>
+<a name="code--krc--1.9-1.sh-session-pyg.html-17"></a><span class="go">==2162== </span>
+<a name="code--krc--1.9-1.sh-session-pyg.html-18"></a><span class="go">==2162== Invalid write of size 1</span>
+<a name="code--krc--1.9-1.sh-session-pyg.html-19"></a><span class="go">==2162==    at 0x4005C3: copy (in /home/zedshaw/projects/books/learn-c-the-hard-way/code/krc/1.9-1)</span>
+<a name="code--krc--1.9-1.sh-session-pyg.html-20"></a><span class="go">==2162==    by 0x400651: main (in /home/zedshaw/projects/books/learn-c-the-hard-way/code/krc/1.9-1)</span>
+<a name="code--krc--1.9-1.sh-session-pyg.html-21"></a><span class="go">==2162==  Address 0x51b109a is 0 bytes after a block of size 10 alloc'd</span>
+<a name="code--krc--1.9-1.sh-session-pyg.html-22"></a><span class="go">==2162==    at 0x4C2815C: malloc (vg_replace_malloc.c:236)</span>
+<a name="code--krc--1.9-1.sh-session-pyg.html-23"></a><span class="go">==2162==    by 0x4005F4: main (in /home/zedshaw/projects/books/learn-c-the-hard-way/code/krc/1.9-1)</span>
+<a name="code--krc--1.9-1.sh-session-pyg.html-24"></a><span class="go">==2162== </span>
+<a name="code--krc--1.9-1.sh-session-pyg.html-25"></a><span class="go">==2162== Invalid read of size 1</span>
+<a name="code--krc--1.9-1.sh-session-pyg.html-26"></a><span class="go">==2162==    at 0x4005C5: copy (in /home/zedshaw/projects/books/learn-c-the-hard-way/code/krc/1.9-1)</span>
+<a name="code--krc--1.9-1.sh-session-pyg.html-27"></a><span class="go">==2162==    by 0x400651: main (in /home/zedshaw/projects/books/learn-c-the-hard-way/code/krc/1.9-1)</span>
+<a name="code--krc--1.9-1.sh-session-pyg.html-28"></a><span class="go">==2162==  Address 0x51b109a is 0 bytes after a block of size 10 alloc'd</span>
+<a name="code--krc--1.9-1.sh-session-pyg.html-29"></a><span class="go">==2162==    at 0x4C2815C: malloc (vg_replace_malloc.c:236)</span>
+<a name="code--krc--1.9-1.sh-session-pyg.html-30"></a><span class="go">==2162==    by 0x4005F4: main (in /home/zedshaw/projects/books/learn-c-the-hard-way/code/krc/1.9-1)</span>
+<a name="code--krc--1.9-1.sh-session-pyg.html-31"></a><span class="go">==2162== </span>
+<a name="code--krc--1.9-1.sh-session-pyg.html-32"></a><span class="go">==2162== </span>
+<a name="code--krc--1.9-1.sh-session-pyg.html-33"></a><span class="go">==2162== HEAP SUMMARY:</span>
+<a name="code--krc--1.9-1.sh-session-pyg.html-34"></a><span class="go">==2162==     in use at exit: 0 bytes in 0 blocks</span>
+<a name="code--krc--1.9-1.sh-session-pyg.html-35"></a><span class="go">==2162==   total heap usage: 2 allocs, 2 frees, 20 bytes allocated</span>
+<a name="code--krc--1.9-1.sh-session-pyg.html-36"></a><span class="go">==2162== </span>
+<a name="code--krc--1.9-1.sh-session-pyg.html-37"></a><span class="go">==2162== All heap blocks were freed -- no leaks are possible</span>
+<a name="code--krc--1.9-1.sh-session-pyg.html-38"></a><span class="go">==2162== </span>
+<a name="code--krc--1.9-1.sh-session-pyg.html-39"></a><span class="go">==2162== For counts of detected and suppressed errors, rerun with: -v</span>
+<a name="code--krc--1.9-1.sh-session-pyg.html-40"></a><span class="go">==2162== ERROR SUMMARY: 3 errors from 3 contexts (suppressed: 4 from 4)</span>
+<a name="code--krc--1.9-1.sh-session-pyg.html-41"></a><span class="gp">$</span>
+</pre></div><p>As you've already learned, Valgrind will show you all of your sins in full
+color.  In this case, a perfectly harmless seeming program has a ton of
+"Invalid read of size 1".  If you kept running it you'd find other errors pop
+up at random.</p>
+<p>Now, in the context of the entire program in the original <tt class="docutils literal">K&amp;RC</tt> example,
+this function will work correctly.  However, the second this function is called
+with <tt class="docutils literal">longest</tt> and <tt class="docutils literal">line</tt> uninitialized, initialized wrong, without a
+trailing <tt class="docutils literal">'\0'</tt> character, then you'll hit difficult to debug errors.</p>
+<p>This is the failing of the book.  While the code works in the book, it does
+<em>not</em> work in many other situations leading to difficult to spot defects, and
+those are the worst kind of defects for a beginner (or expert).  Instead of
+code that only works in this delicate balance, we will strive to create code
+that has a higher probability of working in any situation.</p>
+</div>
+<div class="section" id="why-copy-fails">
+<h2>Why copy() Fails</h2>
+<p>Many people have looked at this copy function and thought that it is not
+defective.  They claim that, as long as it's used correctly, it is correct.
+One person even went so far as to say, "It's not defective, it's just unsafe."
+Odd, since I'm sure this person wouldn't get into a car if the manufacturer
+said, "Our car is not defective, it's just unsafe."</p>
+<p>However, there is a way to formally prove that this function is defective by
+enumerating the possible inputs and then seeing if any of them cause the while
+loop to never terminate.</p>
+<p>What we'll do is have two strings, A and B, and figure out what copy() does
+with them:</p>
+<ul class="simple">
+<li><tt class="docutils literal">A = <span class="pre">{'a','b','\0'};</span> B = {'a', 'b', <span class="pre">'\0'};</span>&nbsp; copy(A,B);</tt></li>
+<li><tt class="docutils literal">A = <span class="pre">{'a','b'};</span> B = {'a', 'b', <span class="pre">'\0'};</span>&nbsp; copy(A,B);</tt></li>
+<li><tt class="docutils literal">A = <span class="pre">{'a','b','\0'};</span> B = {'a', <span class="pre">'b'};</span>&nbsp; copy(A,B);</tt></li>
+<li><tt class="docutils literal">A = <span class="pre">{'a','b'};</span> B = {'a', <span class="pre">'b'};</span>&nbsp; copy(A,B);</tt></li>
+</ul>
+<p>This is all the basic permutations of strings that can be passed to the
+function based on whether they are terminated with a <tt class="docutils literal">'\0'</tt> or not. To be
+complete I'm covering all possible permutations, even if they seem irrelevant.
+You may think there's no need to include permutations on A, but as you'll see
+in the analysis, not including A fails to find buffer overflows that are
+possible.</p>
+<p>We can then go through each case and determine if the while loop in copy()
+terminates:</p>
+<ul class="simple">
+<li>while-loop finds <tt class="docutils literal">'\0'</tt> in B, copy fits in A, terminates.</li>
+<li>while-loop finds <tt class="docutils literal">'\0'</tt> in B, overflows A, terminates.</li>
+<li>while-loop does not find <tt class="docutils literal">'\0'</tt> in B, overflows A, does not terminate.</li>
+<li>while-loop does not find <tt class="docutils literal">'\0'</tt> in B, overflows A, does not terminate.</li>
+</ul>
+<p>This provides a formal proof that the function is defective because there are
+possible inputs that causes the while-loop to run forever or overflow the
+target.  If you were to try and use this function safely, you would need to
+follow all paths to its usage, and confirm that the data is correct along every
+path.  That gives every path to this function a 50% to 75% chance it will fail
+with just the inputs above.  You could find some more permutations of failure
+but these are the most basic ones.</p>
+<p>Let's now compare this to a copy function that knows the lengths of all the
+inputs to see what it's probability of failure is:</p>
+<ul class="simple">
+<li><tt class="docutils literal">A = <span class="pre">{'a','b','\0'};</span> B = {'a', 'b', <span class="pre">'\0'};</span>&nbsp; safercopy(2, A, 2, B);</tt></li>
+<li><tt class="docutils literal">A = <span class="pre">{'a','b'};</span> B = {'a', 'b', <span class="pre">'\0'};</span>&nbsp; safercopy(2, A, 2, B);</tt></li>
+<li><tt class="docutils literal">A = <span class="pre">{'a','b','\0'};</span> B = {'a', <span class="pre">'b'};</span>&nbsp; safercopy(2, A, 2, B);</tt></li>
+<li><tt class="docutils literal">A = <span class="pre">{'a','b'};</span> B = {'a', <span class="pre">'b'};</span>&nbsp; safercopy(2, A, 2, B);</tt></li>
+</ul>
+<p>Also assume that the safercopy() function uses a for-loop that does not test
+for a <tt class="docutils literal">'\0'</tt> only, but instead uses the given lengths to determine the amount
+to copy.  With that we can then do the same analysis:</p>
+<ul class="simple">
+<li>for-loop processes 2 characters of A, terminates.</li>
+<li>for-loop processes 2 characters of A, terminates.</li>
+<li>for-loop processes 2 characters of A, terminates.</li>
+<li>for-loop processes 2 characters of A, terminates.</li>
+</ul>
+<p>In every case the for-loop variant with string length given as arguments will
+terminate no matter what.  To really test the for-loop variant we'd need to add
+some permutations for differing lengths of strings A and B, but in every case
+the for-loop will always stop because it will only go through a fixed
+previously known finite number of characters.</p>
+<p>That means the for-loop will never loop forever, and as long as it handles all
+the possible differing lengths of A and B, never overflow either side.  The
+only way to break safercopy() is to lie about the lengths of the strings, but
+even then it will <em>still always terminate</em>.  The worst possible scenario for
+the safercopy() function is that you are given an erroneous length for one of
+the strings and that string does not have a <tt class="docutils literal">'\0'</tt> properly, so the function
+buffer overflows.</p>
+<p>This shows exactly why the copy() function is defective, because it does not
+terminate cleanly for most possible inputs, and is only reliable for one of the
+conditions: B terminated and A the right size.  It also shows why a for-loop
+variant with a given fixed length for each input is superior.</p>
+<p>Finally, the significance of this is that I've effectively done a formal proof
+(well, mostly formal) that shows what you should be doing to analyze code.
+Each function has to stand on its own and not have any defects such as
+while-loops that do not terminate.  In the above discussion I've shown that the
+original <tt class="docutils literal">K&amp;RC</tt> is defective, and fatally so since there is no way to fix it
+given the inputs.  There's no way from just a pointer to ask if a string is
+properly formed since the only way to test that is to scan it, and scanning it
+runs into this same problem.</p>
+</div>
+<div class="section" id="but-that-s-not-a-c-string">
+<h2>But, That's Not A C String</h2>
+<p>Some folks then defend this function (despite the proof above) by claiming that
+the strings in the proof aren't C strings.  They want to apply an artful dodge
+that says "the function is not defective because you aren't giving it the right
+inputs", but I'm saying the function is defective because most of the
+<em>possible</em> inputs cause it to crash the software.</p>
+<p>The problem with this mindset is there's no way to confirm that a C string is
+valid.  Imagine you wanted to write a little <tt class="docutils literal">assert_good_string</tt> function
+that checks if a C string is correctly terminated before using it.  This
+function needs to go to the end of the string and see if there's a <tt class="docutils literal">'\0'</tt>
+terminator.  How does it do this?  This function would also have to scan the
+target function to confirm that it ended in <tt class="docutils literal">'\0'</tt>, which means it has the
+same problem as copy() because the input may not be terminated.</p>
+<p>This may seem silly, but people actually do this with strlen().  They take an
+input and think that they just have to run strlen() on the input to confirm
+that it's the right length, but strlen() itself has the same fatal flaw because
+it has to scan and if the string isn't terminated it will also overflow.</p>
+<p>This means any attempt to fix the problem using just C strings also has this
+problem.  The only way to solve it is to include the length of every string and
+use that to scan it.</p>
+<p>If you can't validate a C string in your function, then your only choice is to
+do full code reviews manually.  This introduces human error and no matter what
+you do the error will happen.</p>
+</div>
+<div class="section" id="just-don-t-do-that">
+<h2>Just Don't Do That</h2>
+<p>Another argument in favor of this copy() function is when the proponents of
+<tt class="docutils literal">K&amp;RC</tt> state that you are "just supposed to not use bad strings".  Despite
+the mountains of empirical evidence that this is impossible in C code, they are
+basically correct and that's what I'm teaching in this exercise.  But, instead
+of saying "just don't do that by checking all possible inputs", I'm advocating
+"just don't do that by not using this kind of function".  I'll explain further.</p>
+<p>In order to confirm that all inputs to this function are valid I have to go
+through a code review process that involves this:</p>
+<ul class="simple">
+<li>Find all the places the copy() function is called.</li>
+<li>Trace backwards from that call point to where the inputs are created.</li>
+<li>Confirm that the data is created correctly.</li>
+<li>Follow the path from the creation point of the data to where it's used and confirm that
+no line of code alters the data.</li>
+<li>Repeat this for all paths and all branches, including all loops and if-statements
+involving the data.</li>
+</ul>
+<p>In my experience this is only possible in small programs like the little ones
+that <tt class="docutils literal">K&amp;RC</tt> has.  In real software the number of possible branches you'd need
+to check is much too high for most people to validate, especially in a team
+environment where individuals have varying degrees of capability.  A way to
+quantify this difficulty is that each branch in the code leading to a function
+like copy() has a 50-70% chance of causing the defect.</p>
+<p>However, if you can use a different function and avoid all of these checks then
+doesn't that mean the copy() function is defective by comparison?  These people
+are right, the solution is to "just not do that" by just not using the copy()
+function.  You can change the function to one that includes the sizes of the
+two strings and the problem is solved.  If that's the case then the people who
+think "just don't do that" have just proved that the function is defective,
+because the simpler way to "not do that" is to use a better function.</p>
+<p>If you think copy() is valid as long as you avoid the errors I outline, and if
+safercopy() avoids the errors, then safercopy() is superior and copy() is
+defective by comparison.</p>
+</div>
+<div class="section" id="stylistic-issues">
+<h2>Stylistic Issues</h2>
+<p>A more minor critique of the book is that the style is not only old, but just
+error prone and annoyingly "clever".  Take the code you just saw again and look
+at the <tt class="docutils literal"><span class="pre">while-loop</span></tt> in <tt class="docutils literal">copy</tt>.  There's no reason to write this loop this
+way, as the compiler can just as easily work with a <tt class="docutils literal"><span class="pre">for-loop</span></tt> and without
+the clever triple-equality trick.  The original code also has a while-loop
+without braces, but an if-statement with braces, which leads to even more
+confusion:</p>
+<div class="highlight"><pre><a name="code--krc--1.9-2.c-pyg.html-1"></a><span class="cm">/* bad use of while loop with compound if-statement */</span>
+<a name="code--krc--1.9-2.c-pyg.html-2"></a><span class="k">while</span> <span class="p">((</span><span class="n">len</span> <span class="o">=</span> <span class="n">getline</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">MAXLINE</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+<a name="code--krc--1.9-2.c-pyg.html-3"></a>    <span class="k">if</span> <span class="p">(</span><span class="n">len</span> <span class="o">&gt;</span> <span class="n">max</span><span class="p">)</span> <span class="p">{</span>
+<a name="code--krc--1.9-2.c-pyg.html-4"></a>        <span class="n">max</span> <span class="o">=</span> <span class="n">len</span><span class="p">;</span>
+<a name="code--krc--1.9-2.c-pyg.html-5"></a>        <span class="n">copy</span><span class="p">(</span><span class="n">longest</span><span class="p">,</span> <span class="n">line</span><span class="p">);</span>
+<a name="code--krc--1.9-2.c-pyg.html-6"></a>    <span class="p">}</span>
+<a name="code--krc--1.9-2.c-pyg.html-7"></a><span class="k">if</span> <span class="p">(</span><span class="n">max</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="cm">/* there was a line */</span>
+<a name="code--krc--1.9-2.c-pyg.html-8"></a>    <span class="n">printf</span><span class="p">(</span><span class="s">"%s"</span><span class="p">,</span> <span class="n">longest</span><span class="p">);</span>
+</pre></div><p>This code is <em>incredibly</em> error prone because you can't easily tell where the
+pair of if-statements and the while-loop are paired.  A quick glance makes it
+seem like this while-loop will loop both if-statements, but it doesn't.  In
+modern C code you would instead just use braces all the time and avoid the
+confusion completely.</p>
+<p>While the book could be forgiven for this because of its age, it has been
+republished in this form <em>42 times</em>, and it was updated for the ANSI standard.
+At some point in its history you'd think the authors or some publisher
+ghostwriter could have been bothered to update the book's style.  However, this
+is the problem with sacred cows.  Once they become idols of worship people are
+reluctant to question them or modify them.</p>
+<p>In the rest of this chapter though we will be modernizing the code in <tt class="docutils literal">K&amp;RC</tt>
+to fit the style you've been learning throughout this book.  It will be more
+verbose, but it will be clearer and less error prone because of this slight
+increase in verbosity.</p>
+</div>
+</div>
+<div class="section" id="chapter-1-examples">
+<h1>Chapter 1 Examples</h1>
+<p>Now we begin...</p>
+</div>
+    </div>
+
+    <div class="one columns" id="right-nav">
+        <center>
+        <p><a href="http://c.learncodethehardway.org/book/"><img src="./Deconstructing K&RC_files/48_structure.png"></a></p>
+        <p><a href="mailto:help@learncodethehardway.org"><img src="./Deconstructing K&RC_files/48_email.png"></a></p>
+        <p><a href="http://c.learncodethehardway.org/book/krcritique.html#faq"><img src="./Deconstructing K&RC_files/48_faq.png"></a></p>
+        <p><a href="http://inculcate.me/school/courses/4/"><img src="./Deconstructing K&RC_files/48_video.png"></a></p>
+        </center>
+    </div>
+    <div class="twelve columns" id="footer">
+        <div class="four columns" id="footer-block">
+            <p>
+            <a href="http://learncodethehardway.org/">Copyright (C) 2010 Zed. A. Shaw</a>
+            </p>
+        </div>
+        <div class="four columns" id="footer-block">
+            <p>
+            </p>
+        </div>
+        <div class="three columns" id="footer-block">
+            <p>
+            <a href="http://c.learncodethehardway.org/credits.html">Credits</a>
+            </p>
+        </div>
+        <div class="one columns">
+            &nbsp;
+        </div>
+    </div>
+
+  <!-- Included JS Files (Compressed) -->
+  <script src="./Deconstructing K&RC_files/jquery.js"></script>
+  <script src="./Deconstructing K&RC_files/foundation.min.js"></script>
+  
+  <!-- Initialize JS Plugins -->
+  <script src="./Deconstructing K&RC_files/app.js"></script>
+
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-24168052-8']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+
+
+</div></body></html>

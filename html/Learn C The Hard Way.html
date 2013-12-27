@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<!-- saved from url=(0038)http://c.learncodethehardway.org/book/ -->
+<html class=" js no-touch svg inlinesvg svgclippaths no-ie8compat js no-touch svg inlinesvg svgclippaths no-ie8compat" lang="en" style=""><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+
+  <!-- Set the viewport width to device width for mobile -->
+  <meta name="viewport" content="width=device-width">
+
+  
+<meta name="generator" content="Docutils 0.10: http://docutils.sourceforge.net/">
+<title>Learn C The Hard Way</title>
+
+  <!-- Included CSS Files (Compressed) -->
+  <link rel="stylesheet" href="http://c.learncodethehardway.org/book/stylesheets/foundation.min.css">
+  <link rel="stylesheet" href="http://c.learncodethehardway.org/book/stylesheets/pygments.css">
+  <link rel="stylesheet" href="http://c.learncodethehardway.org/book/stylesheets/app.css">
+
+  <script type="text/javascript" async="" src="./Learn C The Hard Way_files/ga.js"></script><script src="./Learn C The Hard Way_files/modernizr.foundation.js"></script><style type="text/css"></style>
+
+  <!-- IE Fix for HTML5 Tags -->
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+</head>
+<body>
+
+  <div class="row">
+      <div class="twelve columns" id="header">
+          <div class="topbar">
+              <div class="global-nav">
+                  <div class="four columns" id="header-block">
+                      <p><a href="http://c.learncodethehardway.org/">Learn C The Hard Way</a></p>
+                  </div>
+                  <div class="four columns" id="header-block">
+                      <p style="color: white"><a href="http://inculcate.me/school/courses/4/">Online Video Course Plus PDFs $29</a></p>
+                  </div>
+                  <div class="four columns" id="header-block">
+                      <p>
+                      <a href="http://learnpythonthehardway.org/">Python</a> |
+                      <a href="http://ruby.learncodethehardway.org/">Ruby</a> |
+                      <a href="http://c.learncodethehardway.org/">C</a> |
+                      <a href="http://sql.learncodethehardway.org/">SQL</a> |
+                      <a href="http://regex.learncodethehardway.org/">Regex</a> 
+                      </p>
+                  </div>
+              </div>
+          </div>
+          <h1 class="title">Learn C The Hard Way</h1>
+      </div>
+  </div>
+
+  <div class="row">
+    <div class="eleven columns">
+        <p>This is the in-progress free version of Learn C the Hard Way.  It was just converted to a new
+format so things might be missing or formatted wrong.  Email <a class="reference external" href="mailto:help@learncodethehardway.org">help@learncodethehardway.org</a> to
+report any problems.</p>
+<div class="section" id="table-of-contents">
+<h1>Table Of Contents</h1>
+<ul class="simple">
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/preface.html">Preface</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/introduction.html">Introduction: The Cartesian Dream Of C</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex0.html">Exercise 0: The Setup</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex1.html">Exercise 1: Dust Off That Compiler</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex2.html">Exercise 2: Make Is Your Python Now</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex3.html">Exercise 3: Formatted Printing</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex4.html">Exercise 4: Introducing Valgrind</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex5.html">Exercise 5: The Structure Of A C Program</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex6.html">Exercise 6: Types Of Variables</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex7.html">Exercise 7: More Variables, Some Math</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex8.html">Exercise 8: Sizes And Arrays</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex9.html">Exercise 9: Arrays And Strings</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex10.html">Exercise 10: Arrays Of Strings, Looping</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex11.html">Exercise 11: While-Loop And Boolean Expressions</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex12.html">Exercise 12: If, Else-If, Else</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex13.html">Exercise 13: Switch Statement</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex14.html">Exercise 14: Writing And Using Functions</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex15.html">Exercise 15: Pointers Dreaded Pointers</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex16.html">Exercise 16: Structs And Pointers To Them</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex17.html">Exercise 17: Heap And Stack Memory Allocation</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex18.html">Exercise 18: Pointers To Functions</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex19.html">Exercise 19: A Simple Object System</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex20.html">Exercise 20: Zed's Awesome Debug Macros</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex21.html">Exercise 21: Advanced Data Types And Flow Control</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex22.html">Exercise 22: The Stack, Scope, And Globals</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex23.html">Exercise 23: Meet Duff's Device</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex24.html">Exercise 24: Input, Output, Files</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex25.html">Exercise 25: Variable Argument Functions</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex26.html">Exercise 26: Write A First Real Program</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex27.html">Exercise 27: Creative And Defensive Programming</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex28.html">Exercise 28: Intermediate Makefiles</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex29.html">Exercise 29: Libraries And Linking</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex30.html">Exercise 30: Automated Testing</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex31.html">Exercise 31: Debugging Code</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex32.html">Exercise 32: Double Linked Lists</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex33.html">Exercise 33: Linked List Algorithms</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex34.html">Exercise 34: Dynamic Array</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex35.html">Exercise 35: Sorting And Searching</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex36.html">Exercise 36: Safer Strings</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex37.html">Exercise 37: Hashmaps</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex38.html">Exercise 38: Hashmap Algorithms</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex39.html">Exercise 39: String Algorithms</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex40.html">Exercise 40: Binary Search Trees</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex41.html">Exercise 41: Using Cachegrind And Callgrind For Performance Tuning</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex42.html">Exercise 42: Stacks and Queues</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex43.html">Exercise 43: A Simple Statistics Engine</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex44.html">Exercise 44: Ring Buffer</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex45.html">Exercise 45: A Simple TCP/IP Client</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex46.html">Exercise 46: Ternary Search Tree</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex47.html">Exercise 47: A Fast URL Router</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex48.html">Exercise 48: A Tiny Virtual Machine Part 1</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex49.html">Exercise 48: A Tiny Virtual Machine Part 2</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex50.html">Exercise 50: A Tiny Virtual Machine Part 3</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex51.html">Exercise 51: A Tiny Virtual Machine Part 4</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/ex52.html">Exercise 52: A Tiny Virtual Machine Part 5</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/next.html">Next Steps</a></li>
+<li><a class="reference external" href="http://c.learncodethehardway.org/book/krcritique.html">Deconstructing K&amp;R C</a></li>
+</ul>
+</div>
+<div class="section" id="frequently-asked-questions">
+<span id="faq"></span><h1>Frequently Asked Questions</h1>
+<dl class="docutils">
+<dt>How long does this course take?</dt>
+<dd>You should take as long as it takes to get through it, but focus on doing work every day.
+Some people take about 3 months, others 6 months, and some only a week.</dd>
+<dt>What kind of computer do I need?</dt>
+<dd>You will need either an OSX or Linux computer to complete this book.</dd>
+</dl>
+</div>
+    </div>
+
+    <div class="one columns" id="right-nav">
+        <center>
+        <p><a href="./Learn C The Hard Way_files/Learn C The Hard Way.html"><img src="./Learn C The Hard Way_files/48_structure.png"></a></p>
+        <p><a href="mailto:help@learncodethehardway.org"><img src="./Learn C The Hard Way_files/48_email.png"></a></p>
+        <p><a href="http://c.learncodethehardway.org/book/#faq"><img src="./Learn C The Hard Way_files/48_faq.png"></a></p>
+        <p><a href="http://inculcate.me/school/courses/4/"><img src="./Learn C The Hard Way_files/48_video.png"></a></p>
+        </center>
+    </div>
+    <div class="twelve columns" id="footer">
+        <div class="four columns" id="footer-block">
+            <p>
+            <a href="http://learncodethehardway.org/">Copyright (C) 2010 Zed. A. Shaw</a>
+            </p>
+        </div>
+        <div class="four columns" id="footer-block">
+            <p>
+            </p>
+        </div>
+        <div class="three columns" id="footer-block">
+            <p>
+            <a href="http://c.learncodethehardway.org/credits.html">Credits</a>
+            </p>
+        </div>
+        <div class="one columns">
+            &nbsp;
+        </div>
+    </div>
+
+  <!-- Included JS Files (Compressed) -->
+  <script src="./Learn C The Hard Way_files/jquery.js"></script>
+  <script src="./Learn C The Hard Way_files/foundation.min.js"></script>
+  
+  <!-- Initialize JS Plugins -->
+  <script src="./Learn C The Hard Way_files/app.js"></script>
+
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-24168052-8']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+
+
+</div></body></html>

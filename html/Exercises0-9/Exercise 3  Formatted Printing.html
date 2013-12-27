@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)http://c.learncodethehardway.org/book/ex3.html -->
+<html class=" js no-touch svg inlinesvg svgclippaths no-ie8compat js no-touch svg inlinesvg svgclippaths no-ie8compat" lang="en" style=""><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+
+  <!-- Set the viewport width to device width for mobile -->
+  <meta name="viewport" content="width=device-width">
+
+  
+<meta name="generator" content="Docutils 0.10: http://docutils.sourceforge.net/">
+<title>Exercise 3: Formatted Printing</title>
+
+  <!-- Included CSS Files (Compressed) -->
+  <link rel="stylesheet" href="http://c.learncodethehardway.org/book/stylesheets/foundation.min.css">
+  <link rel="stylesheet" href="http://c.learncodethehardway.org/book/stylesheets/pygments.css">
+  <link rel="stylesheet" href="http://c.learncodethehardway.org/book/stylesheets/app.css">
+
+  <script type="text/javascript" async="" src="./Exercise 3  Formatted Printing_files/ga.js"></script><script src="./Exercise 3  Formatted Printing_files/modernizr.foundation.js"></script>
+
+  <!-- IE Fix for HTML5 Tags -->
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+<style type="text/css"></style></head>
+<body>
+
+  <div class="row">
+      <div class="twelve columns" id="header">
+          <div class="topbar">
+              <div class="global-nav">
+                  <div class="four columns" id="header-block">
+                      <p><a href="http://c.learncodethehardway.org/">Learn C The Hard Way</a></p>
+                  </div>
+                  <div class="four columns" id="header-block">
+                      <p style="color: white"><a href="http://inculcate.me/school/courses/4/">Online Video Course Plus PDFs $29</a></p>
+                  </div>
+                  <div class="four columns" id="header-block">
+                      <p>
+                      <a href="http://learnpythonthehardway.org/">Python</a> |
+                      <a href="http://ruby.learncodethehardway.org/">Ruby</a> |
+                      <a href="http://c.learncodethehardway.org/">C</a> |
+                      <a href="http://sql.learncodethehardway.org/">SQL</a> |
+                      <a href="http://regex.learncodethehardway.org/">Regex</a> 
+                      </p>
+                  </div>
+              </div>
+          </div>
+          <h1 class="title">Exercise 3: Formatted Printing</h1>
+      </div>
+  </div>
+
+  <div class="row">
+    <div class="eleven columns">
+        <p>Keep that <tt class="docutils literal">Makefile</tt> around since it'll help you spot errors
+and we'll be adding to it when we need to automate more things.</p>
+<p>Many programming languages use the C way of formatting output, so let's try it:</p>
+<div class="highlight"><pre><a name="code--ex3.c-pyg.html-1"></a><span class="cp">#include &lt;stdio.h&gt;</span>
+<a name="code--ex3.c-pyg.html-2"></a>
+<a name="code--ex3.c-pyg.html-3"></a><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<a name="code--ex3.c-pyg.html-4"></a><span class="p">{</span>
+<a name="code--ex3.c-pyg.html-5"></a>    <span class="kt">int</span> <span class="n">age</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<a name="code--ex3.c-pyg.html-6"></a>    <span class="kt">int</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">72</span><span class="p">;</span>
+<a name="code--ex3.c-pyg.html-7"></a>
+<a name="code--ex3.c-pyg.html-8"></a>    <span class="n">printf</span><span class="p">(</span><span class="s">"I am %d years old.</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">age</span><span class="p">);</span>
+<a name="code--ex3.c-pyg.html-9"></a>    <span class="n">printf</span><span class="p">(</span><span class="s">"I am %d inches tall.</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">height</span><span class="p">);</span>
+<a name="code--ex3.c-pyg.html-10"></a>
+<a name="code--ex3.c-pyg.html-11"></a>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<a name="code--ex3.c-pyg.html-12"></a><span class="p">}</span>
+</pre></div><p>Once you have that, do the usual <tt class="docutils literal">make ex3</tt> to build it and run it.
+Make sure you <em>fix all warnings</em>.</p>
+<p>This exercise has a whole lot going on in a small amount of code so
+let's break it down:</p>
+<ul class="simple">
+<li>First you're including another "header file" called <tt class="docutils literal">stdio.h</tt>. This tells the compiler that you're going to use the "standard Input/Output functions".  One of those is <tt class="docutils literal">printf</tt>.</li>
+<li>Then you're using a variable named <tt class="docutils literal">age</tt> and setting it to 10.</li>
+<li>Next you're using a variable <tt class="docutils literal">height</tt> and setting it to 72.</li>
+<li>Then you use the <tt class="docutils literal">printf</tt> function to print the age and height
+of the tallest 10 year old on the planet.</li>
+<li>In the <tt class="docutils literal">printf</tt> you'll notice you're passing in a string, and
+it's a format string like in many other languages.</li>
+<li>After this format string, you put the variables that should be
+"replaced" into the format string by <tt class="docutils literal">printf</tt>.</li>
+</ul>
+<p>The result of doing this is you are handing <tt class="docutils literal">printf</tt> some variables
+and it is constructing a new string then printing that new string to the
+terminal.</p>
+<div class="section" id="what-you-should-see">
+<h1>What You Should See</h1>
+<p>When you do the whole build you should see something like this:</p>
+<div class="highlight"><pre><a name="code--ex3.sh-session-pyg.html-1"></a><span class="gp">$</span> make ex3
+<a name="code--ex3.sh-session-pyg.html-2"></a><span class="go">cc -Wall -g    ex3.c   -o ex3</span>
+<a name="code--ex3.sh-session-pyg.html-3"></a><span class="gp">$</span> ./ex3
+<a name="code--ex3.sh-session-pyg.html-4"></a><span class="go">I am 10 years old.</span>
+<a name="code--ex3.sh-session-pyg.html-5"></a><span class="go">I am 72 inches tall.</span>
+<a name="code--ex3.sh-session-pyg.html-6"></a><span class="gp">$</span>
+</pre></div><p>Pretty soon I'm going to stop telling you to run <tt class="docutils literal">make</tt> and what
+the build looks like, so please make sure you're getting this right
+and that it's working.</p>
+</div>
+<div class="section" id="external-research">
+<h1>External Research</h1>
+<p>In the <em>Extra Credit</em> section of each exercise I may have you go
+find information on your own and figure things out.  This is an important
+part of being a self-sufficient programmer.  If you constantly run to
+ask someone a question before trying to figure it out first then you
+never learn to solve problems independently.  This leads to you never
+building confidence in your skills and always needing someone else
+around to do your work.</p>
+<p>The way you break this habit is to <em>force</em> yourself to try to answer
+your own questions first, and to confirm that your answer is right.  You
+do this by trying to break things, experimenting with your possible answer,
+and doing your own research.</p>
+<p>For this exercise I want you to go online and find out <em>all</em> of the
+<tt class="docutils literal">printf</tt> escape codes and format sequences.  Escape codes are
+<tt class="docutils literal">\n</tt> or <tt class="docutils literal">\t</tt> that let you print a newline or tab (respectively).
+Format sequences are the <tt class="docutils literal">%s</tt> or <tt class="docutils literal">%d</tt> that let you print a
+string or a integer.  Find all of the ones available, how you can
+modify them, and what kind of "precisions" and widths you can do.</p>
+<p>From now on, these kinds of tasks will be in the Extra Credit and you
+should do them.</p>
+</div>
+<div class="section" id="how-to-break-it">
+<h1>How To Break It</h1>
+<p>Try a few of these ways to break this program, which may or may
+not cause it to crash on your computer:</p>
+<ul class="simple">
+<li>Take the <tt class="docutils literal">age</tt> variable out of the first <tt class="docutils literal">printf</tt> call
+then recompile. You should get a couple of warnings.</li>
+<li>Run this new program and it will either crash, or print out a really
+crazy age.</li>
+<li>Put the <tt class="docutils literal">printf</tt> back the way it was, and then don't set <tt class="docutils literal">age</tt>
+to an initial value by changing that line to <tt class="docutils literal">int age;</tt> then
+rebuild and run again.</li>
+</ul>
+<div class="highlight"><pre><a name="code--ex3.bad.sh-session-pyg.html-1"></a><span class="gp">#</span> edit ex3.c to <span class="nb">break printf</span>
+<a name="code--ex3.bad.sh-session-pyg.html-2"></a><span class="gp">$</span><span class="nb"> </span>make ex3
+<a name="code--ex3.bad.sh-session-pyg.html-3"></a><span class="go">cc -Wall -g    ex3.c   -o ex3</span>
+<a name="code--ex3.bad.sh-session-pyg.html-4"></a><span class="go">ex3.c: In function 'main':</span>
+<a name="code--ex3.bad.sh-session-pyg.html-5"></a><span class="go">ex3.c:8: warning: too few arguments for format</span>
+<a name="code--ex3.bad.sh-session-pyg.html-6"></a><span class="go">ex3.c:5: warning: unused variable 'age'</span>
+<a name="code--ex3.bad.sh-session-pyg.html-7"></a><span class="gp">$</span> ./ex3
+<a name="code--ex3.bad.sh-session-pyg.html-8"></a><span class="go">I am -919092456 years old.</span>
+<a name="code--ex3.bad.sh-session-pyg.html-9"></a><span class="go">I am 72 inches tall.</span>
+<a name="code--ex3.bad.sh-session-pyg.html-10"></a><span class="gp">#</span> edit ex3.c again to fix <span class="nb">printf</span>, but don<span class="err">'</span>t init age
+<a name="code--ex3.bad.sh-session-pyg.html-11"></a><span class="gp">$</span> make ex3
+<a name="code--ex3.bad.sh-session-pyg.html-12"></a><span class="go">cc -Wall -g    ex3.c   -o ex3</span>
+<a name="code--ex3.bad.sh-session-pyg.html-13"></a><span class="go">ex3.c: In function 'main':</span>
+<a name="code--ex3.bad.sh-session-pyg.html-14"></a><span class="go">ex3.c:8: warning: 'age' is used uninitialized in this function</span>
+<a name="code--ex3.bad.sh-session-pyg.html-15"></a><span class="gp">$</span> ./ex3
+<a name="code--ex3.bad.sh-session-pyg.html-16"></a><span class="go">I am 0 years old.</span>
+<a name="code--ex3.bad.sh-session-pyg.html-17"></a><span class="go">I am 72 inches tall.</span>
+<a name="code--ex3.bad.sh-session-pyg.html-18"></a><span class="gp">$</span>
+</pre></div></div>
+<div class="section" id="extra-credit">
+<h1>Extra Credit</h1>
+<ul class="simple">
+<li>Find as many other ways to break <tt class="docutils literal">ex3.c</tt> as you can.</li>
+<li>Run <tt class="docutils literal">man 3 printf</tt> and read about the other '%' format
+characters you can use.  These should look familiar if you used
+them in other languages (<tt class="docutils literal">printf</tt> is where they come from).</li>
+<li>Add <tt class="docutils literal">ex3</tt> to your <tt class="docutils literal">Makefile</tt>'s <tt class="docutils literal">all</tt> list.  Use this
+to <tt class="docutils literal">make clean all</tt> and build all your exercises so far.</li>
+<li>Add <tt class="docutils literal">ex3</tt> to your <tt class="docutils literal">Makefile</tt>'s <tt class="docutils literal">clean</tt> list as well.
+Now use <tt class="docutils literal">make clean</tt> will remove it when you need to.</li>
+</ul>
+</div>
+    </div>
+
+    <div class="one columns" id="right-nav">
+        <center>
+        <p><a href="http://c.learncodethehardway.org/book/"><img src="./Exercise 3  Formatted Printing_files/48_structure.png"></a></p>
+        <p><a href="mailto:help@learncodethehardway.org"><img src="./Exercise 3  Formatted Printing_files/48_email.png"></a></p>
+        <p><a href="http://c.learncodethehardway.org/book/ex3.html#faq"><img src="./Exercise 3  Formatted Printing_files/48_faq.png"></a></p>
+        <p><a href="http://inculcate.me/school/courses/4/"><img src="./Exercise 3  Formatted Printing_files/48_video.png"></a></p>
+        </center>
+    </div>
+    <div class="twelve columns" id="footer">
+        <div class="four columns" id="footer-block">
+            <p>
+            <a href="http://learncodethehardway.org/">Copyright (C) 2010 Zed. A. Shaw</a>
+            </p>
+        </div>
+        <div class="four columns" id="footer-block">
+            <p>
+            </p>
+        </div>
+        <div class="three columns" id="footer-block">
+            <p>
+            <a href="http://c.learncodethehardway.org/credits.html">Credits</a>
+            </p>
+        </div>
+        <div class="one columns">
+            &nbsp;
+        </div>
+    </div>
+
+  <!-- Included JS Files (Compressed) -->
+  <script src="./Exercise 3  Formatted Printing_files/jquery.js"></script>
+  <script src="./Exercise 3  Formatted Printing_files/foundation.min.js"></script>
+  
+  <!-- Initialize JS Plugins -->
+  <script src="./Exercise 3  Formatted Printing_files/app.js"></script>
+
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-24168052-8']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+
+
+</div></body></html>

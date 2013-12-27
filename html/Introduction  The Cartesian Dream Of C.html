@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<!-- saved from url=(0055)http://c.learncodethehardway.org/book/introduction.html -->
+<html class=" js no-touch svg inlinesvg svgclippaths no-ie8compat js no-touch svg inlinesvg svgclippaths no-ie8compat" lang="en" style=""><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+
+  <!-- Set the viewport width to device width for mobile -->
+  <meta name="viewport" content="width=device-width">
+
+  
+<meta name="generator" content="Docutils 0.10: http://docutils.sourceforge.net/">
+<title>Introduction: The Cartesian Dream Of C</title>
+
+  <!-- Included CSS Files (Compressed) -->
+  <link rel="stylesheet" href="http://c.learncodethehardway.org/book/stylesheets/foundation.min.css">
+  <link rel="stylesheet" href="http://c.learncodethehardway.org/book/stylesheets/pygments.css">
+  <link rel="stylesheet" href="http://c.learncodethehardway.org/book/stylesheets/app.css">
+
+  <script type="text/javascript" async="" src="./Introduction  The Cartesian Dream Of C_files/ga.js"></script><script src="./Introduction  The Cartesian Dream Of C_files/modernizr.foundation.js"></script>
+
+  <!-- IE Fix for HTML5 Tags -->
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+<style type="text/css"></style></head>
+<body>
+
+  <div class="row">
+      <div class="twelve columns" id="header">
+          <div class="topbar">
+              <div class="global-nav">
+                  <div class="four columns" id="header-block">
+                      <p><a href="http://c.learncodethehardway.org/">Learn C The Hard Way</a></p>
+                  </div>
+                  <div class="four columns" id="header-block">
+                      <p style="color: white"><a href="http://inculcate.me/school/courses/4/">Online Video Course Plus PDFs $29</a></p>
+                  </div>
+                  <div class="four columns" id="header-block">
+                      <p>
+                      <a href="http://learnpythonthehardway.org/">Python</a> |
+                      <a href="http://ruby.learncodethehardway.org/">Ruby</a> |
+                      <a href="http://c.learncodethehardway.org/">C</a> |
+                      <a href="http://sql.learncodethehardway.org/">SQL</a> |
+                      <a href="http://regex.learncodethehardway.org/">Regex</a> 
+                      </p>
+                  </div>
+              </div>
+          </div>
+          <h1 class="title">Introduction: The Cartesian Dream Of C</h1>
+      </div>
+  </div>
+
+  <div class="row">
+    <div class="eleven columns">
+        <blockquote>
+<p>Whatever I have up till now accepted as most true and assured I have gotten
+either from the senses or through the senses. But from time to time I have
+found that the senses deceive, and it is prudent never to trust completely
+those who have deceived us even once.</p>
+<p class="attribution">—Rene Descartes, Meditations On First Philosophy</p>
+</blockquote>
+<p>If there ever were a quote that described programming with C, it would be this.
+To many programmers, this makes C scary and evil.  It is the Devil, Satan, the
+trickster Loki come to destroy your productivity with his seductive talk of
+pointers and direct access to the machine.  Then, once this computational
+Lucifer has you hooked, he destroys your world with the evil "segfault" and
+laughs as he reveals the trickery in your bargain with him.</p>
+<p>But, C is not to blame for this state of affairs.  No my friends, your computer
+and the Operating System controlling it are the real tricksters.  They conspire
+to hide their true inner workings from you so that you can never really know
+what is going on.  The C programming language's only failing is giving you
+access to what is really there, and telling you the cold hard raw truth.  C
+gives you the red pill.  C pulls the curtain back to show you the wizard.  <em>C
+is truth.</em></p>
+<p>Why use C then if it's so dangerous?   Because C gives you power over the false
+reality of abstraction and liberates you from stupidity.</p>
+<div class="section" id="what-you-will-learn">
+<h1>What You Will Learn</h1>
+<p>The purpose of this book is to get you strong enough in C that you'll be able
+to write your own software in it, or modify someone else's code.  At the end of
+the book we actually take code from a more famous book called <tt class="docutils literal">K&amp;R C</tt> and code
+review it using what you've learned.  To get to this stage you'll have to learn
+a few things:</p>
+<ul class="simple">
+<li>The basics of C syntax and idioms.</li>
+<li>Compilation, make files, linkers.</li>
+<li>Finding bugs and preventing them.</li>
+<li>Defensive coding practices.</li>
+<li>Breaking C code.</li>
+<li>Writing basic Unix systems software.</li>
+</ul>
+<p>By the final chapter you will have more than enough ammunition to tackle basic
+systems software, libraries, and other smaller projects.</p>
+</div>
+<div class="section" id="how-to-read-this-book">
+<h1>How To Read This Book</h1>
+<p>This book is intended for programmers who have learned at least one other
+programming language.  I refer you to <a class="reference external" href="http://learnpythonthehardway.org/">Learn Python The Hard Way</a> if you haven't learned a programming
+language yet.  This book is meant for total beginners and works very well as a
+first book on programming.  Once you've done those then you can come back and
+start this book.</p>
+<p>For those who've already learned to code, this book may seem strange at first.
+It's not like other books where you read paragraph after paragraph of prose and
+then type in a bit of code here and there.  Instead I have you coding right
+away and then I explain what you just did.  This works better because it's
+easier to explain something you've already experienced.</p>
+<p>Because of this structure, there are a few rules you <em>must</em> follow in this
+book:</p>
+<ul class="simple">
+<li>Type in all of the code. Do not copy-paste!</li>
+<li>Type the code in exactly, even the comments.</li>
+<li>Get it to run and make sure it prints the same output.</li>
+<li>If there are bugs fix them.</li>
+<li>Do the extra credit but it's alright to skip ones you can't figure out.</li>
+<li>Always try to figure it out first before trying to get help.</li>
+</ul>
+<p>If you follow these rules, do everything in the book, and still can't code C
+then you at least tried.  It's not for everyone, but the act of trying will
+make you a better programmer.</p>
+</div>
+<div class="section" id="the-core-competencies">
+<h1>The Core Competencies</h1>
+<p>I'm going to guess that you come from a language for weaklings.   One of those
+"usable" languages that lets you get away with sloppy thinking and half-assed
+hackery like Python or Ruby.  Or, maybe you use a language like Lisp that
+pretends the computer is some purely functional fantasy land with padded walls
+for little babies.  Maybe you've learned Prolog and you think the entire world
+should just be a database that you walk around in looking for clues.  Even
+worse, I'm betting you've been using an IDE, so your brain is riddled with
+memory holes and you can't even type out an entire function's name without
+hitting CTRL-SPACE every 3 characters you type.</p>
+<p>No matter what your background, you are probably bad at four skills:</p>
+<dl class="docutils">
+<dt>Reading And Writing</dt>
+<dd>This is especially true if you use an IDE, but
+generally I find programmers do too much "skimming" and have problems
+reading for comprehension.  They'll skim code they need to understand
+in detail and think they understand it when they really don't.  Other languages
+provide tools that also let them avoid actually writing any code, so
+when faced with a language like C they break down.  Simplest thing to
+do is just understand <em>everyone</em> has this problem, and you can fix
+it by forcing yourself to slow down and be meticulous about your reading
+and writing.  At first it'll feel painful and annoying, but take frequent
+breaks, and then eventually it'll be easy to do.</dd>
+<dt>Attention To Detail</dt>
+<dd>Everyone is bad at this, and it's the biggest cause
+of bad software.  Other languages let you get away with not paying attention,
+but C demands your full attention because it is right in the machine and the
+machine is very picky.  With C there is no "kind of similar" or "close enough",
+so you need to pay attention.  Double check your work.  Assume everything you
+write is wrong until you prove it's right.</dd>
+<dt>Spotting Differences</dt>
+<dd>A key problem people from other languages have is
+their brain has been trained to spot differences in <em>that</em> language,
+not in C.  When you compare code you've written to my exercise code your
+eyes will jump right over characters you think don't matter or that aren't
+familiar.  I'll be giving you strategies that force you to see your
+mistakes, but keep in mind that if your code is not <em>exactly</em> like
+the code in this book it is wrong.</dd>
+<dt>Planning And Debugging</dt>
+<dd>I love other easier languages because I can
+just hang out. I type the ideas I have into their interpreter and see results immediately.
+They're great for just hacking out ideas, but have you noticed that if you
+keep doing "hack until it works" eventually nothing works?  C is harder on
+you because it requires you to plan out what you'll create first.  Sure,
+you can hack for a bit, but you have to get serious much earlier in C than
+other languages.  I'll be teaching you ways to plan out key parts of your
+program before you start coding, and this will hopefully make you a
+better programmer at the same time.  Even just a little planning can smooth
+things out down the road.</dd>
+</dl>
+<p>Learning C makes you a better programmer because you are forced to deal with
+these issues earlier and more frequently.  You can't be sloppy and half-assed
+about what you write or nothing will work.  The advantage of C is it's a simple
+language you can figure out on your own, which makes it a great language for
+learning about the machine and getting stronger in these core programmer
+skills.</p>
+<p>C is harder than some other languages, but that's only because C's not hiding
+things from you that those other languages try and fail to obfuscate.</p>
+</div>
+<div class="section" id="license">
+<h1>License</h1>
+<p>This book is free for you to read, but until I'm done you can't distribute it
+or modify it.  I need to make sure that unfinished copies of it do not get out
+and mess up a student on accident.</p>
+</div>
+    </div>
+
+    <div class="one columns" id="right-nav">
+        <center>
+        <p><a href="http://c.learncodethehardway.org/book/"><img src="./Introduction  The Cartesian Dream Of C_files/48_structure.png"></a></p>
+        <p><a href="mailto:help@learncodethehardway.org"><img src="./Introduction  The Cartesian Dream Of C_files/48_email.png"></a></p>
+        <p><a href="http://c.learncodethehardway.org/book/introduction.html#faq"><img src="./Introduction  The Cartesian Dream Of C_files/48_faq.png"></a></p>
+        <p><a href="http://inculcate.me/school/courses/4/"><img src="./Introduction  The Cartesian Dream Of C_files/48_video.png"></a></p>
+        </center>
+    </div>
+    <div class="twelve columns" id="footer">
+        <div class="four columns" id="footer-block">
+            <p>
+            <a href="http://learncodethehardway.org/">Copyright (C) 2010 Zed. A. Shaw</a>
+            </p>
+        </div>
+        <div class="four columns" id="footer-block">
+            <p>
+            </p>
+        </div>
+        <div class="three columns" id="footer-block">
+            <p>
+            <a href="http://c.learncodethehardway.org/credits.html">Credits</a>
+            </p>
+        </div>
+        <div class="one columns">
+            &nbsp;
+        </div>
+    </div>
+
+  <!-- Included JS Files (Compressed) -->
+  <script src="./Introduction  The Cartesian Dream Of C_files/jquery.js"></script>
+  <script src="./Introduction  The Cartesian Dream Of C_files/foundation.min.js"></script>
+  
+  <!-- Initialize JS Plugins -->
+  <script src="./Introduction  The Cartesian Dream Of C_files/app.js"></script>
+
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-24168052-8']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+
+
+</div></body></html>
