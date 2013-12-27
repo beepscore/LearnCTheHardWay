@@ -5,6 +5,7 @@
 // forward declarations
 bool can_print_it(char ch);
 void print_letters(char arg[]);
+void print_letter(char ch);
 
 void print_arguments(int argc, char *argv[])
 {
@@ -21,15 +22,9 @@ void print_arguments(int argc, char *argv[])
 void print_letters(char arg[])
 {
     int i = 0;
-
     for (i = 0; arg[i] != '\0'; i++) {
-        char ch = arg[i];
-
-        if (can_print_it(ch)) {
-            printf("'%c' == %d ", ch, ch);
-        }
+        print_letter(arg[i]);
     }
-
     printf("\n");
 }
 
@@ -39,6 +34,16 @@ void print_letters(char arg[])
 bool can_print_it(char ch)
 {
     return isalpha(ch) || isblank(ch);
+}
+
+/** print letter if it is alpha or blank
+ *  else don't print
+ */
+void print_letter(char ch)
+{
+    if (can_print_it(ch)) {
+        printf("'%c' == %d ", ch, ch);
+    }
 }
 
 int main(int argc, char *argv[]) {
