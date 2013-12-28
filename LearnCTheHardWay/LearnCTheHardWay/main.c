@@ -89,8 +89,12 @@ int main(int argc, char *argv[])
     Person_print(frank);
 
     // destroy them both so we clean up
-    /*Person_destroy(joe);*/
-    /*Person_destroy(frank);*/
+    // if comment out calls to Person_destroy, program runs.
+    // Xcode Analyze reports
+    // "Potential leak of memory pointed to by 'joe', same for frank
+    // Xcode Instruments Profile leaks shows live bytes from malloc.
+    Person_destroy(joe);
+    Person_destroy(frank);
     
     return 0;
 }
