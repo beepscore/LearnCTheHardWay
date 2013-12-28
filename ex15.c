@@ -30,6 +30,12 @@ int main(int argc, char *argv[])
                 names[i], ages[i]);
     }
 
+    printf("first way, but iterate backwards.\n");
+    for (i = (count - 1); i >= 0; i--) {
+        printf("%s has %d years alive.\n",
+                names[i], ages[i]);
+    }
+
     printf("---\n");
 
     // setup pointers to the start of the arrays
