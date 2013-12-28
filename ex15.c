@@ -9,6 +9,16 @@ void print_names_ages_reversed(char *names[], int ages[], int ages_count)
     }
 }
 
+void print_names_ages_pointer_args(char **names_ptr, int *ages_ptr, int ages_count)
+{
+    printf("second way, using pointers.\n");
+    for (int i = 0; i < ages_count; i++) {
+        // dereference pointers to get values
+        printf("%s is %d years old.\n",
+                *(names_ptr + i), *(ages_ptr + i));
+    }
+}
+
 int main(int argc, char *argv[])
 {
     // References
@@ -40,6 +50,7 @@ int main(int argc, char *argv[])
     }
 
     printf("---\n");
+
     print_names_ages_reversed(names, ages, count);
     printf("---\n");
 
@@ -50,13 +61,7 @@ int main(int argc, char *argv[])
     // pointing to the first element of names is the same as pointing to names
     char **cur_name = names;
 
-    // second way, using pointers
-    for (i = 0; i < count; i++) {
-        // dereference pointers to get values
-        printf("%s is %d years old.\n",
-                *(cur_name + i), *(cur_age + i));
-    }
-
+    print_names_ages_pointer_args(cur_name, cur_age, count);
     printf("---\n");
 
     // third way.
