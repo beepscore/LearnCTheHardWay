@@ -16,11 +16,16 @@ struct Person {
 
 struct Person *Person_create(char *name, int age, int height, int weight)
 {
+    // allocate memory to hold struct
     struct Person *who = malloc(sizeof(struct Person));
+
+    // check malloc returned valid pointer, not unset or invalid pointer
     // if assert() is false, writes to stderr and calls abort()
     // e.g. Assertion failed: (who != NULL), function Person_create, file ex16.c, line 19.
     assert(who != NULL);
 
+    // intialize
+    // Ensure the struct owns name. Use strdup to allocate memory and duplicate string.
     who->name = strdup(name);
     who->age = age;
     who->height = height;
@@ -32,7 +37,7 @@ struct Person *Person_create(char *name, int age, int height, int weight)
 void Person_destroy(struct Person *who)
 {
     assert(who != NULL);
-
+    // free memory to avoid memory leak
     free(who->name);
     free(who);
 }
