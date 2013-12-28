@@ -60,10 +60,10 @@ int main(int argc, char *argv[])
     "Frank Blank", 20, 72, 180);
 
     // print them out and where they are in memory
-    printf("Joe is at memory location %p:\n", joe);
+    printf("Joe is at memory location: %p\n", joe);
     Person_print(joe);
 
-    printf("Frank is at memory location %p:\n", frank);
+    printf("Frank is at memory location: %p\n", frank);
     Person_print(frank);
 
     // make everyone age 20 years and print them again
