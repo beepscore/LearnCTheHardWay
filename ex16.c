@@ -35,6 +35,9 @@ struct Person *Person_create(char *name, int age, int height, int weight)
     return who;
 }
 
+/** if argument is NULL, program will abort with message similar to
+ * Assertion failed: (who != NULL), function Person_destroy, file ex16.c, line 40.
+ */
 void Person_destroy(struct Person *who)
 {
     assert(who != NULL);
