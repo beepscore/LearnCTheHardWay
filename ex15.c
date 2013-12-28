@@ -48,7 +48,8 @@ int main(int argc, char *argv[])
 
     printf("---\n");
 
-    // third way, pointers are just arrays
+    // third way.
+    // Even though pointers are different from arrays, can sometimes use array syntax with a pointer.
     for (i = 0; i < count; i++) {
         // using cur_name and cur_age as arrays is confusing. Do it for teaching purposes.
         // ith index offsets address by i*sizeof(element)
