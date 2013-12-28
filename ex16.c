@@ -48,6 +48,9 @@ void Person_destroy(struct Person *who)
     free(who);
 }
 
+/** if argument is NULL, program will abort with message similar to
+ * [1]    13866 segmentation fault  ./ex16
+ */
 void Person_print(struct Person *who)
 {
     printf("Name: %s\n", who->name);
