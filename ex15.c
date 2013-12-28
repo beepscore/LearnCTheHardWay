@@ -1,5 +1,14 @@
 #include <stdio.h>
 
+void print_names_ages_reversed(char *names[], int ages[], int ages_count)
+{
+    printf("first way, but iterate backwards.\n");
+    for (int i = (ages_count - 1); i >= 0; i--) {
+        printf("%s has %d years alive.\n",
+                names[i], ages[i]);
+    }
+}
+
 int main(int argc, char *argv[])
 {
     // References
@@ -30,12 +39,8 @@ int main(int argc, char *argv[])
                 names[i], ages[i]);
     }
 
-    printf("first way, but iterate backwards.\n");
-    for (i = (count - 1); i >= 0; i--) {
-        printf("%s has %d years alive.\n",
-                names[i], ages[i]);
-    }
-
+    printf("---\n");
+    print_names_ages_reversed(names, ages, count);
     printf("---\n");
 
     // setup pointers to the start of the arrays
