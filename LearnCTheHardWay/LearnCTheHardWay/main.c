@@ -7,61 +7,90 @@
 //
 
 #include <stdio.h>
+// http://en.wikipedia.org/wiki/Assert.h
+#include <assert.h>
+// include stlib for malloc
+// http://en.wikipedia.org/wiki/C_standard_library
+#include <stdlib.h>
+// include string for strdup
+#include <string.h>
 
-/* This is a comment */
-int main(int argc, const char * argv[])
+// struct groups related variables and enables reference like joe->age
+struct Person {
+    char *name;
+    int age;
+    int height;
+    int weight;
+};
+
+struct Person *Person_create(char *name, int age, int height, int weight)
 {
-    char name[4] = {'a'};
-    // if you set one array element, C will fill remaining elements with 0
-    int numbers[4] = {3};
+    // allocate memory to hold struct
+    struct Person *who = malloc(sizeof(struct Person));
 
-    // first, print them out raw
-    printf("numbers: %d %d %d %d\n",
-           numbers[0], numbers[1],
-           numbers[2], numbers[3]);
+    // check malloc returned valid pointer, not unset or invalid pointer
+    // if assert() is false, writes to stderr and calls abort()
+    // e.g. Assertion failed: (who != NULL), function Person_create, file ex16.c, line 19.
+    assert(who != NULL);
 
-    printf("name each: %c %c %c %c\n",
-           name[0], name[1],
-           name[2], name[3]);
+    // intialize
+    // Ensure the struct owns name. Use strdup to allocate memory and duplicate string.
+    who->name = strdup(name);
+    who->age = age;
+    who->height = height;
+    who->weight = weight;
 
-    printf("name: %s\n", name);
+    return who;
+}
 
-    // setup the numbers
-    numbers[0] = 1;
-    numbers[1] = 2;
-    numbers[2] = 3;
-    numbers[3] = 4;
+/** if argument is NULL, program will abort with message similar to
+ * Assertion failed: (who != NULL), function Person_destroy, file ex16.c, line 40.
+ */
+void Person_destroy(struct Person *who)
+{
+    assert(who != NULL);
+    // free memory to avoid memory leak
+    free(who->name);
+    free(who);
+}
 
-    // setup the name
-    name[0] = 'Z';
-    name[1] = 'e';
-    name[2] = 'd';
-    name[3] = '\0';
-    // this is a bug, lack of null terminator may not show up immediately
-    // sometimes changing order of variable declaration causes bug to show
-    name[3] = 'B';
+void Person_print(struct Person *who)
+{
+    printf("Name: %s\n", who->name);
+    printf("\tAge: %d\n", who->age);
+    printf("\tHeight: %d\n", who->height);
+    printf("\tWeight: %d\n", who->weight);
+}
 
-    // then print them out initialized.
-    printf("numbers: %d %d %d %d\n",
-           numbers[0], numbers[1],
-           numbers[2], numbers[3]);
+int main(int argc, char *argv[])
+{
+    // make two people structures
+    struct Person *joe = Person_create(
+                                       "Joe Alex", 32, 64, 140);
 
-    printf("name each: %c %c %c %c\n",
-           name[0], name[1],
-           name[2], name[3]);
+    struct Person *frank = Person_create(
+                                         "Frank Blank", 20, 72, 180);
 
-    // print the name like a string
-    printf("name: %s\n", name);
+    // print them out and where they are in memory
+    printf("Joe is at memory location: %p\n", joe);
+    Person_print(joe);
 
-    // another way to use name
-    char *another = "Zed";
+    printf("Frank is at memory location: %p\n", frank);
+    Person_print(frank);
 
-    printf("another: %s\n", another);
+    // make everyone age 20 years and print them again
+    joe->age += 20;
+    joe->height -= 2;
+    joe->weight += 40;
+    Person_print(joe);
 
-    printf("another each: %c %c %c %c\n",
-           another[0], another[1],
-           another[2], another[3]);
+    frank->age += 20;
+    frank->weight += 20;
+    Person_print(frank);
+
+    // destroy them both so we clean up
+    /*Person_destroy(joe);*/
+    /*Person_destroy(frank);*/
     
     return 0;
 }
-
