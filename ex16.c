@@ -1,6 +1,10 @@
 #include <stdio.h>
+// http://en.wikipedia.org/wiki/Assert.h
 #include <assert.h>
+// include stlib for malloc
+// http://en.wikipedia.org/wiki/C_standard_library
 #include <stdlib.h>
+// include string for strdup
 #include <string.h>
 
 struct Person {
@@ -13,6 +17,8 @@ struct Person {
 struct Person *Person_create(char *name, int age, int height, int weight)
 {
     struct Person *who = malloc(sizeof(struct Person));
+    // if assert() is false, writes to stderr and calls abort()
+    // e.g. Assertion failed: (who != NULL), function Person_create, file ex16.c, line 19.
     assert(who != NULL);
 
     who->name = strdup(name);
