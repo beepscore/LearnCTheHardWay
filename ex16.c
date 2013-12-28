@@ -40,9 +40,9 @@ void Person_destroy(struct Person *who)
 void Person_print(struct Person *who)
 {
     printf("Name: %s\n", who->name);
-    printf("tAge: %d\n", who->age);
-    printf("tHeight: %d\n", who->height);
-    printf("tWeight: %d\n", who->weight);
+    printf("\tAge: %d\n", who->age);
+    printf("\tHeight: %d\n", who->height);
+    printf("\tWeight: %d\n", who->weight);
 }
 
 int main(int argc, char *argv[])
