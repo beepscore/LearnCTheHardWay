@@ -56,8 +56,15 @@ int main(int argc, char *argv[])
         printf("%s is %d years old again.\n",
                 cur_name[i], cur_age[i]);
 
-        printf("pointer addresses (cur_name + i): %d &cur_name[i]: %d\n",
-                (int)(cur_name + i), (int)&cur_name[i]);
+        // %p is format specifier for pointer.
+        // Prints hex address, doesn't require cast to (long int)
+        printf("pointer addresses (cur_name + i): %p &cur_name[i]: %p\n",
+                (cur_name + i), &cur_name[i]);
+
+        // %ld and cast to (long int) prints decimal address
+        printf("pointer addresses (cur_name + i): %ld &cur_name[i]: %ld\n",
+                (long int)(cur_name + i), (long int)&cur_name[i]);
+
     }
 
     printf("---\n");
