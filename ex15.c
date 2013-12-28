@@ -2,8 +2,19 @@
 
 int main(int argc, char *argv[])
 {
+    // References
+    // C / Arrays and Array-pointer interchangeability
+    // http://en.wikipedia.org/wiki/C_(programming_language)
+    //
+    // http://c-faq.com/aryptr/aryptrequiv.html
+    // http://c-faq.com/aryptr/practdiff.html
+    // http://c-faq.com/aryptr/aryptr2.html
+    // http://stackoverflow.com/questions/10186765/char-array-vs-char-pointer-in-c
+
     // create two arrays we care about
+    // ages is array of int
     int ages[] = {23, 43, 12, 89, 2};
+    // names is array of strings, i.e. array of char *
     char *names[] = {
         "Alan", "Frankenstein",
         "Mary", "John", "Lisa"
@@ -22,8 +33,9 @@ int main(int argc, char *argv[])
     printf("---\n");
 
     // setup pointers to the start of the arrays
+    // cur_age is a pointer to ages, i.e. pointer to array of int.
     int *cur_age = ages;
-    // cur_name type is char **, pointer to names.  names type is char *.
+    // cur_name is a pointer to names, i.e. pointer array of char *.
     // pointing to the first element of names is the same as pointing to names
     char **cur_name = names;
 
