@@ -7,6 +7,7 @@
 // include string for strdup
 #include <string.h>
 
+// struct groups related variables and enables reference like joe->age
 struct Person {
     char *name;
     int age;
