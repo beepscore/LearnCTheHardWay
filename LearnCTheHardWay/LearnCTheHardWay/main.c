@@ -16,6 +16,9 @@
 #include <string.h>
 
 // struct groups related variables and enables reference like joe->age
+// http://en.wikipedia.org/wiki/Struct_(C_programming_language)
+// typedef-ing structs is controversial, it "pollutes" global namespace
+// http://stackoverflow.com/questions/252780/why-should-we-typedef-a-struct-so-often-in-c
 struct Person {
     char *name;
     int age;
@@ -23,9 +26,18 @@ struct Person {
     int weight;
 };
 
+struct Bird {
+    char *name;
+    int age;
+    int wingspan;
+    int weight;
+};
+
+/** returns a pointer to a Person struct created on the heap
+ */
 struct Person *Person_create(char *name, int age, int height, int weight)
 {
-    // allocate memory to hold struct
+    // allocate enough memory to hold one Person struct and set who to point to it
     struct Person *who = malloc(sizeof(struct Person));
 
     // check malloc returned valid pointer, not unset or invalid pointer
@@ -35,12 +47,31 @@ struct Person *Person_create(char *name, int age, int height, int weight)
 
     // intialize
     // Ensure the struct owns name. Use strdup to allocate memory and duplicate string.
+    // syntax who->name dereferences who and then accesses name
     who->name = strdup(name);
     who->age = age;
     who->height = height;
     who->weight = weight;
 
     return who;
+}
+
+/** returns a Bird struct created on the stack
+ *  http://stackoverflow.com/questions/10916799/how-to-create-a-struct-on-the-stack-in-c
+ *  OS will free stack memory automatically
+ */
+struct Bird bird_create(char *name, int age, int wingspan, int weight)
+{
+    struct Bird a_bird;
+
+    // intialize
+    // Ensure the struct owns name. Use strdup to allocate memory and duplicate string.
+    a_bird.name = strdup(name);
+    a_bird.age = age;
+    a_bird.wingspan = wingspan;
+    a_bird.weight = weight;
+
+    return a_bird;
 }
 
 /** if argument is NULL, program will abort with message similar to
@@ -56,12 +87,30 @@ void Person_destroy(struct Person *who)
     free(who);
 }
 
+void bird_destroy(struct Bird a_bird)
+{
+    // free name, because it was created using strdup
+    // without this, Xcode Profile Instruments leaks shows memory leak
+    free(a_bird.name);
+}
+
+/** if argument is NULL, program will abort with message similar to
+ * [1]    13866 segmentation fault  ./ex16
+ */
 void Person_print(struct Person *who)
 {
     printf("Name: %s\n", who->name);
     printf("\tAge: %d\n", who->age);
     printf("\tHeight: %d\n", who->height);
     printf("\tWeight: %d\n", who->weight);
+}
+
+void bird_print(struct Bird a_bird)
+{
+    printf("Name: %s\n", a_bird.name);
+    printf("\tAge: %d\n", a_bird.age);
+    printf("\tWingspan: %d\n", a_bird.wingspan);
+    printf("\tWeight: %d\n", a_bird.weight);
 }
 
 int main(int argc, char *argv[])
@@ -73,12 +122,20 @@ int main(int argc, char *argv[])
     struct Person *frank = Person_create(
                                          "Frank Blank", 20, 72, 180);
 
+    // make one bird structure
+    // bill is a struct, not a pointer to a struct
+    struct Bird bill = bird_create(
+                                   "Bill Robin", 1, 11, 1);
+
     // print them out and where they are in memory
     printf("Joe is at memory location: %p\n", joe);
     Person_print(joe);
 
     printf("Frank is at memory location: %p\n", frank);
     Person_print(frank);
+
+    printf("Bill is at memory location: %p\n", &bill);
+    bird_print(bill);
 
     // make everyone age 20 years and print them again
     joe->age += 20;
@@ -90,13 +147,19 @@ int main(int argc, char *argv[])
     frank->weight += 20;
     Person_print(frank);
 
-    // destroy them both so we clean up
+    bill.age += 20;
+    bill.wingspan += 1;
+    bird_print(bill);
+
+    // destroy every Person to clean up heap memory.
     // if comment out calls to Person_destroy, program runs.
     // Xcode Analyze reports
     // "Potential leak of memory pointed to by 'joe', same for frank
     // Xcode Instruments Profile leaks shows live bytes from malloc.
     Person_destroy(joe);
     Person_destroy(frank);
+    
+    bird_destroy(bill);
     
     return 0;
 }
