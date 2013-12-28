@@ -42,6 +42,8 @@ void Person_destroy(struct Person *who)
 {
     assert(who != NULL);
     // free memory to avoid memory leak
+    // if comment out free(who->name), Xcode Analyze doesn't warn
+    // Xcode Instruments Profile leaks shows malloc 16 live bytes.
     free(who->name);
     free(who);
 }
