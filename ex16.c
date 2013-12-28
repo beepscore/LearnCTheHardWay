@@ -8,6 +8,8 @@
 #include <string.h>
 
 // struct groups related variables and enables reference like joe->age
+// typedef-ing structs is controversial, it "pollutes" global namespace
+// http://stackoverflow.com/questions/252780/why-should-we-typedef-a-struct-so-often-in-c
 struct Person {
     char *name;
     int age;
