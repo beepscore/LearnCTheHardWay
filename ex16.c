@@ -7,6 +7,8 @@
 // include string for strdup
 #include <string.h>
 
+#define MAX_NAME 20
+
 // struct groups related variables and enables reference like joe->age
 // http://en.wikipedia.org/wiki/Struct_(C_programming_language)
 // typedef-ing structs is controversial, it "pollutes" global namespace
@@ -19,7 +21,7 @@ struct Person {
 };
 
 struct Bird {
-    char *name;
+    char name[MAX_NAME];
     int age;
     int wingspan;
     int weight;
@@ -57,8 +59,14 @@ struct Bird bird_create(char *name, int age, int wingspan, int weight)
     struct Bird a_bird;
 
     // intialize
-    // Ensure the struct owns name. Use strdup to allocate memory and duplicate string.
-    a_bird.name = strdup(name);
+    // Use strncpy to avoid allocating new memory on heap and eliminate need to call free() later in program
+    // copy source to target up to n characters, fill any empties with '\0'
+    // CAUTION: if source is as long or longer than n, strncpy doesn't set the last character null!
+    // http://randomascii.wordpress.com/2013/04/03/stop-using-strncpy-already/
+    // http://stackoverflow.com/questions/14950241/pointer-to-one-struct-in-another-writing-and-reading-it-from-file-gives-segfaul
+    strncpy(a_bird.name, name, MAX_NAME);
+    // Ensure last character is null.
+    a_bird.name[sizeof(a_bird.name) - 1] = '\0';
     a_bird.age = age;
     a_bird.wingspan = wingspan;
     a_bird.weight = weight;
@@ -77,13 +85,6 @@ void Person_destroy(struct Person *who)
     // Xcode Instruments Profile leaks shows malloc 16 live bytes.
     free(who->name);
     free(who);
-}
-
-void bird_destroy(struct Bird a_bird)
-{
-    // free name, because it was created using strdup
-    // without this, Xcode Profile Instruments leaks shows memory leak
-    free(a_bird.name);
 }
 
 /** if argument is NULL, program will abort with message similar to
@@ -139,6 +140,9 @@ int main(int argc, char *argv[])
     frank->weight += 20;
     Person_print(frank);
 
+    strncpy(bill.name, "billy", MAX_NAME);
+    // Ensure last character is null.
+    bill.name[sizeof(bill.name) - 1] = '\0';
     bill.age += 20;
     bill.wingspan += 1;
     bird_print(bill);
@@ -150,8 +154,6 @@ int main(int argc, char *argv[])
     // Xcode Instruments Profile leaks shows live bytes from malloc.
     Person_destroy(joe);
     Person_destroy(frank);
-
-    bird_destroy(bill);
 
     return 0;
 }
