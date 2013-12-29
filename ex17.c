@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <string.h>
+#include <stdbool.h>
 
 //#define MAX_DATA 512
 #define MAX_DATA 6
@@ -10,7 +11,7 @@
 
 struct Address {
     int id;
-    int set;
+    bool is_set;
     char name[MAX_DATA];
     char email[MAX_DATA];
 };
@@ -102,7 +103,7 @@ void Database_create(struct Connection *conn) {
 
     for (i = 0; i < MAX_ROWS; i++) {
         // make a prototype to initialize it
-        struct Address addr = {.id = i, .set = 0};
+        struct Address addr = {.id = i, .is_set = false};
         // then just assign it
         conn->db->rows[i] = addr;
     }
@@ -110,10 +111,10 @@ void Database_create(struct Connection *conn) {
 
 void Database_set(struct Connection *conn, int id, const char *name, const char *email) {
     struct Address *addr = &conn->db->rows[id];
-    if (addr->set) {
+    if (addr->is_set) {
         die("Already set, delete it first");
     }
-    addr->set = 1;
+    addr->is_set = true;
 
     // WARNING: bug, read the "How To Break It" and fix this
     // demonstrate the strncpy bug (Not an undocumented 'bug', but maybe poor design)
@@ -139,7 +140,7 @@ void Database_set(struct Connection *conn, int id, const char *name, const char 
 void Database_get(struct Connection *conn, int id) {
     struct Address *addr = &conn->db->rows[id];
 
-    if (addr->set) {
+    if (addr->is_set) {
         Address_print(addr);
     } else {
         die("ID is not set");
@@ -147,7 +148,7 @@ void Database_get(struct Connection *conn, int id) {
 }
 
 void Database_delete(struct Connection *conn, int id) {
-    struct Address addr = {.id = id, .set = 0};
+    struct Address addr = {.id = id, .is_set = false};
     conn->db->rows[id] = addr;
 }
 
@@ -158,7 +159,7 @@ void Database_list(struct Connection *conn) {
     for (i = 0; i < MAX_ROWS; i++) {
         struct Address *cur = &db->rows[i];
 
-        if (cur->set) {
+        if (cur->is_set) {
             Address_print(cur);
         }
     }
