@@ -2,8 +2,9 @@
 
 # for use with Learn C The Hard Way ex17.c
 
-# connect to database file. If it doesn't exist, create it.
+printf "connect to database file. If it doesn't exist, create it."
 ./ex17 db.dat c
+
 printf "add records\n"
 # add record with id 1
 ./ex17 db.dat s 1 zed zed@zedshaw.com
