@@ -41,3 +41,6 @@ DerivedData
 *.exe
 *.out
 *.app
+
+# application database
+db.dat
