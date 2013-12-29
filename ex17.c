@@ -45,7 +45,7 @@ void Address_print(struct Address *addr) {
 }
 
 void Database_load(struct Connection *conn) {
-    // Reference: man fread
+    // Reference: man 3 fread
     // fread() reads nitems objects, each size bytes long,
     // from the stream pointed to by stream,
     // storing them at the location given by ptr.
