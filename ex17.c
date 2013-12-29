@@ -8,8 +8,7 @@
 #include <string.h>
 #include <stdbool.h>
 
-//#define MAX_DATA 512
-#define MAX_DATA 6
+#define MAX_DATA 512
 #define MAX_ROWS 100
 
 struct Address {
