@@ -232,34 +232,4 @@ int main(int argc, char *argv[]) {
     Database_close(conn);
     return 0;
 
-    // Sample run and output
-    //
-    // if db.dat file doesn't exist, c command creates it.
-    // $ ./ex17 db.dat c
-    //
-    // $ ./ex17 db.dat s 1 zed zed@zedshaw.com
-    // $ ./ex17 db.dat s 2 frank frank@zedshaw.com
-    // $ ./ex17 db.dat s 3 joe joe@zedshaw.com
-    // $ ./ex17 db.dat l
-    // 1 zed zed@zedshaw.com
-    // 2 frank frank@zedshaw.com
-    // 3 joe joe@zedshaw.com
-    //
-    // $ ./ex17 db.dat d 3
-    // $ ./ex17 db.dat l
-    // 1 zed zed@zedshaw.com
-    // 2 frank frank@zedshaw.com
-    //
-    // $ ./ex17 db.dat g 2
-    // 2 frank frank@zedshaw.com
-
-    // temporarily define MAX_DATA 6
-    // $ ./ex17 db.dat c
-    // $ ./ex17 db.dat s 1 zed zed@zedshaw.com
-    // $ ./ex17 db.dat s 2 frank frank@zedshaw.com
-    // $ ./ex17 db.dat s 3 joe joe@zedshaw.com
-    // $ ./ex17 db.dat l
-    // 1 zed zed@z
-    // 2 frank frank
-    // 3 joe joe@z
 }
