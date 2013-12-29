@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <assert.h>
+// stdlib contains exit()
 #include <stdlib.h>
+// errno reports error codes at static location errno
+// http://en.wikipedia.org/wiki/Errno.h
 #include <errno.h>
 #include <string.h>
 #include <stdbool.h>
@@ -17,6 +20,7 @@ struct Address {
 };
 
 struct Database {
+    // rows array contains elements of type struct Address
     struct Address rows[MAX_ROWS];
 };
 
@@ -27,11 +31,12 @@ struct Connection {
 
 void die(const char *message) {
     if (errno) {
+        // perror prints error message to stderr
         perror(message);
     } else {
         printf("ERROR: %s\n", message);
     }
-
+    // exit with non-zero code 1 to indicate a problem occurred
     exit(1);
 }
 
@@ -41,7 +46,13 @@ void Address_print(struct Address *addr) {
 }
 
 void Database_load(struct Connection *conn) {
+    // Reference: man fread
+    // fread() reads nitems objects, each size bytes long,
+    // from the stream pointed to by stream,
+    // storing them at the location given by ptr.
+    // fread(void *restrict ptr, size_t size, size_t nitems, FILE *restrict stream);
     int rc = fread(conn->db, sizeof(struct Database), 1, conn->file);
+    // fread returns number of objects read
     if (rc != 1) die("Failed to load database.");
 }
 
