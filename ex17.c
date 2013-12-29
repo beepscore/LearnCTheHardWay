@@ -4,7 +4,8 @@
 #include <errno.h>
 #include <string.h>
 
-#define MAX_DATA 512
+//#define MAX_DATA 512
+#define MAX_DATA 6
 #define MAX_ROWS 100
 
 struct Address {
@@ -112,16 +113,24 @@ void Database_set(struct Connection *conn, int id, const char *name, const char 
     if (addr->set) {
         die("Already set, delete it first");
     }
-
     addr->set = 1;
+
     // WARNING: bug, read the "How To Break It" and fix this
+    // demonstrate the strncpy bug (Not an undocumented 'bug', but maybe poor design)
+    // if name is as long or longer than MAX_DATA, strncpy won't set the last character null.
+    // http://randomascii.wordpress.com/2013/04/03/stop-using-strncpy-already/
+    // http://stackoverflow.com/questions/14950241/pointer-to-one-struct-in-another-writing-and-reading-it-from-file-gives-segfaul
     char *res = strncpy(addr->name, name, MAX_DATA);
-    // demonstrate the strncpy bug
+    // Ensure last character is null.
+    addr->name[sizeof(addr->name) - 1] = '\0';
+
     if (!res) {
         die("Name copy failed");
     }
 
     res = strncpy(addr->email, email, MAX_DATA);
+    // Ensure last character is null.
+    addr->email[sizeof(addr->email) - 1] = '\0';
     if (!res) {
         die("Email copy failed");
     }
@@ -227,10 +236,19 @@ int main(int argc, char *argv[]) {
     //
     // $ ./ex17 db.dat d 3
     // $ ./ex17 db.dat l
-    // $ 1 zed zed@zedshaw.com
-    // $ 2 frank frank@zedshaw.com
+    // 1 zed zed@zedshaw.com
+    // 2 frank frank@zedshaw.com
     //
     // $ ./ex17 db.dat g 2
-    // $ 2 frank frank@zedshaw.com
+    // 2 frank frank@zedshaw.com
 
+    // temporarily define MAX_DATA 6
+    // $ ./ex17 db.dat c
+    // $ ./ex17 db.dat s 1 zed zed@zedshaw.com
+    // $ ./ex17 db.dat s 2 frank frank@zedshaw.com
+    // $ ./ex17 db.dat s 3 joe joe@zedshaw.com
+    // $ ./ex17 db.dat l
+    // 1 zed zed@z
+    // 2 frank frank
+    // 3 joe joe@z
 }
