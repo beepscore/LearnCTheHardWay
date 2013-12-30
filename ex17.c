@@ -169,6 +169,8 @@ void Database_get(struct Connection *conn, int id) {
 }
 
 void Database_delete(struct Connection *conn, int id) {
+    // set id and is_set
+    // don't set name or email, this leaves them empty
     struct Address addr = {.id = id, .is_set = false};
     conn->db->rows[id] = addr;
 }
