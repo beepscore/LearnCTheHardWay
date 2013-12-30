@@ -98,10 +98,16 @@ void Database_close(struct Connection *conn) {
 void Database_write(struct Connection *conn) {
     rewind(conn->file);
 
+    // Reference: man 3 fwrite
+    // fwrite() writes nitems objects, each size bytes long,
+    // to the stream pointed to by stream, obtaining them from the location given by ptr.
+    // fwrite(const void *restrict ptr, size_t size, size_t nitems, FILE *restrict stream);
     int rc = fwrite(conn->db, sizeof(struct Database), 1, conn->file);
+    // fwrite returns number of objects written
     if (rc != 1) {
         die("Failed to write database.");
     }
+    // fflush() forces a write of all buffered data for the given output or update stream
     rc = fflush(conn->file);
     if (rc == -1) {
         die("Cannot flush database.");
