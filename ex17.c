@@ -11,6 +11,9 @@
 #define MAX_DATA 512
 #define MAX_ROWS 100
 
+/** Address struct is fixed size.
+ * This is less space efficient but easier to read and write.
+ */
 struct Address {
     int id;
     bool is_set;
@@ -18,6 +21,8 @@ struct Address {
     char email[MAX_DATA];
 };
 
+/** Database struct is fixed size, because it contains a fixed number of fixed size elements.
+ */
 struct Database {
     // rows array contains elements of type struct Address
     struct Address rows[MAX_ROWS];
