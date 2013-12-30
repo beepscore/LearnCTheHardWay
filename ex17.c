@@ -72,6 +72,7 @@ struct Connection *Database_open(const char *filename, char mode) {
     }
 
     if (mode == 'c') {
+        // fopen(const char *restrict filename, const char *restrict mode);
         conn->file = fopen(filename, "w");
     } else {
         conn->file = fopen(filename, "r+");
@@ -91,6 +92,10 @@ struct Connection *Database_open(const char *filename, char mode) {
 void Database_close(struct Connection *conn) {
     if (conn) {
         if (conn->file) {
+            // fclose() function dissociates the named stream
+            // from its underlying file or set of functions.
+            // If the stream was being used for output,
+            // any buffered data is written first, using fflush(3)
             fclose(conn->file);
         }
         if (conn->db) {
