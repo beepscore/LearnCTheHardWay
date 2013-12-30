@@ -175,7 +175,7 @@ void Database_get(struct Connection *conn, int id) {
 
 void Database_delete(struct Connection *conn, int id) {
     // set id and is_set
-    // don't set name or email, this leaves them empty
+    // don't set name or email, this initializes them to zero.
     struct Address addr = {.id = id, .is_set = false};
     conn->db->rows[id] = addr;
 }
@@ -204,6 +204,7 @@ int main(int argc, char *argv[]) {
     int id = 0;
 
     if (argc > 3) {
+        // atoi converts string to integer
         id = atoi(argv[3]);
     }
     if (id >= MAX_ROWS) {
