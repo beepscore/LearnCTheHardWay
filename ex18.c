@@ -19,8 +19,10 @@ void die(const char *message)
 typedef int(*compare_cb)(int a, int b);
 
 /**
- * A classic bubble sort function that uses the
- * compare_cb to do the sorting.
+ * A classic bubble sort function that compares elements.
+ * param numbers is a pointer to an array of integers
+ * param count is the size of numbers array
+ * param cmp is a function pointer to a function whose signature matches typedef compare_cb
  */
 int *bubble_sort(int *numbers, int count, compare_cb cmp)
 {
@@ -37,7 +39,9 @@ int *bubble_sort(int *numbers, int count, compare_cb cmp)
 
     for (i = 0; i < count; i++) {
 
-        for (j = 0; j < count - 1; j++) {
+        for (j = 0; j < (count - 1); j++) {
+            // call whatever function function pointer cmp points to
+            // use local variable target for arguments.
             if (cmp(target[j], target[j+1]) > 0) {
                 temp = target[j+1];
                 target[j+1] = target[j];
@@ -48,16 +52,22 @@ int *bubble_sort(int *numbers, int count, compare_cb cmp)
     return target;
 }
 
+/** sorted_order function signature is compatible with function pointer typedef compare_cb
+ */
 int sorted_order(int a, int b)
 {
     return a - b;
 }
 
+/** reverse_order function signature is compatible with function pointer typedef compare_cb
+ */
 int reverse_order(int a, int b)
 {
     return b - a;
 }
 
+/** strange_order function signature is compatible with function pointer typedef compare_cb
+ */
 int strange_order(int a, int b)
 {
     if (a == 0 || b == 0) {
@@ -68,8 +78,7 @@ int strange_order(int a, int b)
 }
 
 /**
- * Used to test that we are sorting things correctly
- * by doing the sort and printing it out.
+ * Test bubble_sort by sorting elements and printing results.
  */
 void test_sorting(int *numbers, int count, compare_cb cmp)
 {
@@ -108,6 +117,8 @@ int main(int argc, char *argv[])
         numbers[i] = atoi(inputs[i]);
     }
 
+    // call test_sorting(), passing name of a sorting function
+    // C compiler finds the address of the function.
     test_sorting(numbers, count, sorted_order);
     test_sorting(numbers, count, reverse_order);
     test_sorting(numbers, count, strange_order);
