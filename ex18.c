@@ -93,6 +93,13 @@ void test_sorting(int *numbers, int count, compare_cb cmp)
     }
     printf("\n");
     free(sorted);
+
+    // print function pointed to by cmp as a string
+    unsigned char *data = (unsigned char *)cmp;
+    for (i = 0; i < 25; i++) {
+        printf("%02x:", data[i]);
+    }
+    printf("\n");
 }
 
 int main(int argc, char *argv[])
@@ -117,7 +124,7 @@ int main(int argc, char *argv[])
         numbers[i] = atoi(inputs[i]);
     }
 
-    // call test_sorting(), passing name of a sorting function
+    // call test_sorting(), passing name of a function whose signature matches typedef compare_cb.
     // C compiler finds the address of the function.
     test_sorting(numbers, count, sorted_order);
     test_sorting(numbers, count, reverse_order);
