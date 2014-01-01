@@ -20,7 +20,22 @@ $ ./ex18.sh
 ## Extra Credit
 
 ### Hex editor
+#### Xcode
 To use Xcode hex editor, open file in Xcode, then shift-command-j / open as hex
 Open compiled program ex18, not source code ex18.c
 I changed characters in comments and re-ran ex18 without a problem.
 I changed characters in error message, re-ran ex18 without arguments to make error message print, no problem.
+
+#### HexFiend
+
+#### Aquamacs / emacs
+hexl mode for editing binary files
+http://www.gnu.org/software/emacs/manual/html_node/emacs/Editing-Binary-Files.html
+M-x <filename>
+Or in Aquamacs pull down menu open file, then menu File/change buffer mode/hex.
+
+#### MacVim
+This seems like a poor implementation, hex at left and text at right don't update each other when editing.
+Open file, then menu Tools / Convert to Hex
+Edit and convert back.
+
