@@ -44,3 +44,7 @@ Edit and convert back.
     test_sorting(numbers, count, die);
 MacVim syntastic warns:
 Incompatible pointer types passing 'void (const char *)' to parameter of type 'compare_cb' (aka 'int (*)(int, int)')
+
+### Pass in NULL
+    test_sorting(numbers, count, NULL);
+    $ ./ex18.sh: line 5:  2017 Segmentation fault: 11  ./ex18 4 1 7 3 2 0 8
