@@ -39,3 +39,8 @@ This seems like a poor implementation, hex at left and text at right don't updat
 Open file, then menu Tools / Convert to Hex
 Edit and convert back.
 
+### Test supply incorrect argument
+'Pass in the wrong function for the compare_cb and see what the C compiler complains about.'
+    test_sorting(numbers, count, die);
+MacVim syntastic warns:
+Incompatible pointer types passing 'void (const char *)' to parameter of type 'compare_cb' (aka 'int (*)(int, int)')
