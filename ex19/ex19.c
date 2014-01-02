@@ -147,7 +147,9 @@ int process_input(Map *game)
     char ch = getchar();
     getchar(); // eat ENTER
 
-    int damage = rand() % 4;
+    // srand and rand are obsoleted by arc4random()
+    // arc4random_uniform() will return a uniformly distributed random number less than upper_bound.
+    int damage = arc4random_uniform(4);
 
     switch(ch) {
         case -1:
@@ -200,13 +202,6 @@ int process_input(Map *game)
 
 int main(int argc, char *argv[])
 {
-    // simple way to setup the randomness
-    // The srand() function sets its argument seed as the seed
-    // for a new sequence of pseudo-random numbers to be returned by rand()
-    // man 3 srand says:
-    // These interfaces (ed. srand and rand) are obsoleted by arc4random(3)
-    srand(time(NULL));
-
     // make our map to work with
     Map *game = NEW(Map, "The Hall of the Minotaur.");
 
