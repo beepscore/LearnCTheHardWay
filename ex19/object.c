@@ -42,6 +42,24 @@ int Object_attack(void *self, int damage)
 
 void *Object_new(size_t size, Object proto, char *description)
 {
+    assert(size != 0);
+    // http://stackoverflow.com/questions/2414809/default-value-of-an-objective-c-struct-and-how-to-test
+    // http://stackoverflow.com/questions/141720/how-do-you-compare-structs-for-equality-in-c?lq=1
+    assert(proto.description == NULL);
+
+    printf("proto.attack %p\n", proto.attack);
+    assert(proto.attack != NULL);
+
+    printf("proto.init %p\n", proto.init);
+    // assertion doesn't work. Sometimes proto.init is NULL, sometimes it isn't
+    //assert(proto.init != NULL);
+
+    printf("proto.move %p\n", proto.move);
+    // assertion doesn't work. Sometimes proto.move is NULL, sometimes it isn't
+    // assert(proto.move != NULL);
+
+    assert(description != NULL);
+
     // setup the default functions in case they aren't set
     if (!proto.init) {
         proto.init = Object_init;
