@@ -30,6 +30,7 @@ int Object_attack(void *self, int damage);
 void *Object_new(size_t size, Object proto, char *description);
 
 // function-like macros
+// http://stackoverflow.com/questions/321143/good-programming-practices-for-macro-definitions-define-in-c
 // #define <identifier>(<parameter list>) <replacement token list>
 // T##Proto concatenates Proto to the end of T
 // NEW(Room, "Hello") will become Object_new(sizeof(Room), RoomProto, "Hello")
