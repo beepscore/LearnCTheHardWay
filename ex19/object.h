@@ -14,6 +14,8 @@ typedef enum {
 typedef struct {
     char *description;
     // function pointers
+    // different Objects, such as Map, Room, Monster can each provide
+    // their own implementation of these functions e.g. "attack"
     int (*init)(void *self);
     void (*describe)(void *self);
     void (*destroy)(void *self);

@@ -29,7 +29,7 @@ int Monster_init(void *self)
     return 1;
 }
 
-/** Make an Object struct and assign init and attack
+/** Make a MonsterProto Object struct and set its init and attack
  */
 Object MonsterProto = {
     .init = Monster_init,
@@ -70,6 +70,7 @@ int Room_attack(void *self, int damage)
     Monster *monster = room->bad_guy;
 
     if (monster) {
+        // call Monster_attack
         monster->_(attack)(monster, damage);
         return 1;
     } else {
@@ -78,7 +79,7 @@ int Room_attack(void *self, int damage)
     }
 }
 
-/** Make an Object struct and assign move and attack
+/** Make a RoomProto Object struct and set its move and attack
  */
 Object RoomProto = {
     .move = Room_move,
@@ -105,6 +106,8 @@ int Map_attack(void *self, int damage)
     Map* map = self;
     Room *location = map->location;
 
+    // macro expands statement to location->proto.attack(location, damage)
+    // this calls Room_attack
     return location->_(attack)(location, damage);
 }
 
@@ -140,6 +143,8 @@ int Map_init(void *self)
     return 1;
 }
 
+/** Make a MapProto Object struct and set its init, move and attack
+ */
 Object MapProto = {
     .init = Map_init,
     .move = Map_move,
