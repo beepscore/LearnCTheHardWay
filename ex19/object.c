@@ -10,6 +10,8 @@ void Object_destroy(void *self)
 
     if (obj) {
         if (obj->description) {
+            // free() return type is void, i.e. free() doesn't return a value.
+            // So we don't need to check return value.
             free(obj->description);
         }
         free(obj);
