@@ -1,7 +1,8 @@
 // if _object_h is already defined,
 // #ifndef skips all code through #endif
 // This way, multiple files can include object.h
-// without causing problems by defining multiple times
+// without causing problems by double inclusion
+// http://en.wikipedia.org/wiki/C_preprocessor
 #ifndef _object_h
 // #define _object_h to prevent multiple including
 #define _object_h
@@ -28,7 +29,8 @@ void *Object_move(void *self, Direction direction);
 int Object_attack(void *self, int damage);
 void *Object_new(size_t size, Object proto, char *description);
 
-// macros
+// function-like macros
+// #define <identifier>(<parameter list>) <replacement token list>
 // T##Proto concatenates Proto to the end of T
 // NEW(Room, "Hello") will become Object_new(sizeof(Room), RoomProto, "Hello")
 #define NEW(T, N) Object_new(sizeof(T), T##Proto, N)
