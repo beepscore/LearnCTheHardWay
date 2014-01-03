@@ -27,6 +27,10 @@ void Object_destroy(void *self);
 void Object_describe(void *self);
 void *Object_move(void *self, Direction direction);
 int Object_attack(void *self, int damage);
+
+/** return void pointer, a generic pointer that can point to an object of any data type
+ * http://en.wikipedia.org/wiki/Pointer_(computer_programming)
+ */
 void *Object_new(size_t size, Object proto, char *description);
 
 // function-like macros
