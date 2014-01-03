@@ -64,7 +64,7 @@ void *Object_new(size_t size, Object proto, char *description)
     Object *el = calloc(1, size);
     *el = proto;
 
-    // copy the description over
+    // copy the description argument to el
     el->description = strdup(description);
 
     // initialize it with whatever init we were given

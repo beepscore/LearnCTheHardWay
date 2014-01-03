@@ -29,6 +29,8 @@ int Monster_init(void *self)
     return 1;
 }
 
+/** Make an Object struct and assign init and attack
+ */
 Object MonsterProto = {
     .init = Monster_init,
     .attack = Monster_attack
@@ -76,6 +78,8 @@ int Room_attack(void *self, int damage)
     }
 }
 
+/** Make an Object struct and assign move and attack
+ */
 Object RoomProto = {
     .move = Room_move,
     .attack = Room_attack
@@ -109,12 +113,14 @@ int Map_init(void *self)
     Map *map = self;
 
     // make some rooms for a small map
+    // make RoomProto objects sizeof(Room)
     Room *hall = NEW(Room, "The great Hall");
     Room *throne = NEW(Room, "The throne room");
     Room *arena = NEW(Room, "The arena, with the minotaur");
     Room *kitchen = NEW(Room, "Kitchen, you have the knife now");
 
     // put the bad guy in the arena
+    // make a MonsterProto object
     arena->bad_guy = NEW(Monster, "The evil minotaur");
 
     // setup the map rooms
@@ -203,6 +209,7 @@ int process_input(Map *game)
 int main(int argc, char *argv[])
 {
     // make our map to work with
+    // make a MapProto object
     Map *game = NEW(Map, "The Hall of the Minotaur.");
 
     printf("You enter the ");
