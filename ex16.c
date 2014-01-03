@@ -11,6 +11,7 @@
 
 // struct groups related variables and enables reference like joe->age
 // http://en.wikipedia.org/wiki/Struct_(C_programming_language)
+// http://publications.gbdirect.co.uk/c_book/chapter6/structures.html
 // typedef-ing structs is controversial, it "pollutes" global namespace
 // http://stackoverflow.com/questions/252780/why-should-we-typedef-a-struct-so-often-in-c
 struct Person {
