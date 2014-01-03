@@ -8,3 +8,5 @@ clean:
 	rm -f object.o
 	rm -f ex19
 
+test:
+	./ex19.py
