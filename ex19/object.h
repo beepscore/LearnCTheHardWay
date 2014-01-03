@@ -28,7 +28,11 @@ void *Object_move(void *self, Direction direction);
 int Object_attack(void *self, int damage);
 void *Object_new(size_t size, Object proto, char *description);
 
+// macros
+// T##Proto concatenates Proto to the end of T
+// NEW(Room, "Hello") will become Object_new(sizeof(Room), RoomProto, "Hello")
 #define NEW(T, N) Object_new(sizeof(T), T##Proto, N)
+// use this to write obj->_(blah) as shorthand for obj->proto.blah
 #define _(N) proto.N
 
 #endif
