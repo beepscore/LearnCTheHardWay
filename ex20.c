@@ -1,3 +1,7 @@
+// to turn off debug log, uncomment #define NDEBUG
+// must do this before include dbg.h
+// #define NDEBUG
+
 #include "dbg.h"
 #include <stdio.h>
 #include <stdlib.h>
