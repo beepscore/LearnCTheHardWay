@@ -20,12 +20,14 @@
 #define clean_errno() (0 == errno ? "None" : strerror(errno))
 
 // work like debug, but won't be ifdef'ed out
+// first two macros use clean_errno macro
 #define log_err(M, ...) fprintf(stderr, "[ERROR] (%s:%d: errno: %s) " M "\n", __FILE__, __LINE__, clean_errno(), ##__VA_ARGS__)
 #define log_warn(M, ...) fprintf(stderr, "[WARN] (%s:%d: errno: %s) " M "\n", __FILE__, __LINE__, clean_errno(), ##__VA_ARGS__)
 #define log_info(M, ...) fprintf(stderr, "[INFO] (%s:%d:) " M "\n", __FILE__, __LINE__, ##__VA_ARGS__)
 
 // "best macro ever"
 // if A isn't true, log error and jump function's to error: label for cleanup
+// check macro uses log_err macro
 #define check(A, M, ...) if(!(A)) { log_err(M, ##__VA_ARGS__); errno=0; goto error; }
 
 // "second best macro ever"
