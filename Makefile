@@ -18,6 +18,7 @@ clean:
 	rm -f ex15
 	rm -f ex16
 	rm -f ex17
+	rm -f ex20
 
 all:
 	make ex1
@@ -37,3 +38,4 @@ all:
 	make ex15
 	make ex16
 	make ex17
+	make ex20
