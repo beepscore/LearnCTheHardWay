@@ -14,16 +14,16 @@
 #else
 // log to stderr
 // Use a variadic macro to wrap printf and handle variable number of arguments.
-#define debug(M, ...) fprintf(stderr, "DEBUG %s:%d: " M "\n", __FILE__, __LINE__, ##__VA_ARGS__)
+#define debug(M, ...) fprintf(stderr, "DEBUG %s:%d:%s: " M "\n", __FILE__, __LINE__, __func__, ##__VA_ARGS__)
 #endif
 
 #define clean_errno() (0 == errno ? "None" : strerror(errno))
 
 // work like debug, but won't be ifdef'ed out
 // first two macros use clean_errno macro
-#define log_err(M, ...) fprintf(stderr, "[ERROR] (%s:%d: errno: %s) " M "\n", __FILE__, __LINE__, clean_errno(), ##__VA_ARGS__)
-#define log_warn(M, ...) fprintf(stderr, "[WARN] (%s:%d: errno: %s) " M "\n", __FILE__, __LINE__, clean_errno(), ##__VA_ARGS__)
-#define log_info(M, ...) fprintf(stderr, "[INFO] (%s:%d:) " M "\n", __FILE__, __LINE__, ##__VA_ARGS__)
+#define log_err(M, ...) fprintf(stderr, "[ERROR] (%s:%d:%s: errno: %s) " M "\n", __FILE__, __LINE__, __func__, clean_errno(), ##__VA_ARGS__)
+#define log_warn(M, ...) fprintf(stderr, "[WARN] (%s:%d:%s: errno: %s) " M "\n", __FILE__, __LINE__, __func__, clean_errno(), ##__VA_ARGS__)
+#define log_info(M, ...) fprintf(stderr, "[INFO] (%s:%d:%s:) " M "\n", __FILE__, __LINE__, __func__, ##__VA_ARGS__)
 
 // "best macro ever"
 // if A isn't true, log error and jump function's to error: label for cleanup
