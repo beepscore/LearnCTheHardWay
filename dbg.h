@@ -2,6 +2,7 @@
 #define __dbg_h__
 
 // http://c.learncodethehardway.org/book/ex20.html
+// http://en.wikipedia.org/wiki/Variadic_macro
 
 #include <stdio.h>
 #include <errno.h>
@@ -12,6 +13,7 @@
 #define debug(M, ...)
 #else
 // log to stderr
+// Use a variadic macro to wrap printf and handle variable number of arguments.
 #define debug(M, ...) fprintf(stderr, "DEBUG %s:%d: " M "\n", __FILE__, __LINE__, ##__VA_ARGS__)
 #endif
 
