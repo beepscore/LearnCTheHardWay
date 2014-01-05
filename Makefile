@@ -1,4 +1,4 @@
-CFLAGS=-Wall -g
+CFLAGS=-Wall -g -DNDEBUG
 
 clean:
 	rm -f ex1
@@ -19,6 +19,11 @@ clean:
 	rm -f ex16
 	rm -f ex17
 	rm -f ex20
+	rm -f ex22.o
+	rm -f ex22_main
+	rm -r ex22_main.dSYM
+
+ex22_main: ex22.o
 
 all:
 	make ex1
