@@ -5,7 +5,7 @@ PREFIX?=/usr/local
 SOURCES=$(wildcard src/**/*.c src/*.c)
 OBJECTS=$(patsubst %.c,%.o,$(SOURCES))
 
-TEST_SRC=$(wildcard tests/*tests.c)
+TEST_SRC=$(wildcard tests/*_tests.c)
 TESTS=$(patsubst %.c,%,$(TEST_SRC))
 
 TARGET=build/libYOUR_LIBRARY.a
@@ -31,9 +31,9 @@ build:
 
 # The Unit Tests
 .PHONY: tests
-	tests: CFLAGS += $(TARGET)
-	tests: $(TESTS)
-	sh ./tests/runtests.hs
+tests: CFLAGS += $(TARGET)
+tests: $(TESTS)
+	sh ./tests/runtests.sh
 
 valgrind:
 	VALGRIND="valgrind --log-file=/tmp/valgrind-%p.log" $(MAKE)
