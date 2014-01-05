@@ -21,7 +21,9 @@ clean:
 	rm -f ex20
 	rm -f ex22.o
 	rm -f ex22_main
-	rm -r ex22_main.dSYM
+	rm -rf ex22_main.dSYM
+	rm -f ex24
+	rm -rf ex24.dSYM
 
 ex22_main: ex22.o
 
@@ -44,3 +46,4 @@ all:
 	make ex16
 	make ex17
 	make ex20
+	make ex24
