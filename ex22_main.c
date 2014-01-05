@@ -1,6 +1,12 @@
 #include "ex22.h"
 #include "dbg.h"
 
+// To compile on command line without make:
+// $ cc -Wall -g -DNDEBUG   -c -o ex22.o ex22.c
+// $ cc -Wall -g -DNDEBUG ex22_main.c ex22.o -o ex22_main
+// To run
+// $ ./ex22_main
+
 const char *MY_NAME = "Zed A. Shaw";
 
 void scope_demo(int count)
