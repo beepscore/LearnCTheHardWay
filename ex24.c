@@ -44,9 +44,11 @@ int main(int argc, char *argv[])
 
     printf("How old are you? ");
     // fscanf first argument specifies an input stream, e.g. stdin
-    // scanf is more specialized, it always reads from stdin
     // last argument is a pointer so fscanf can set the value of you.age
-    int rc = fscanf(stdin, "%d", &you.age);
+    // int rc = fscanf(stdin, "%d", &you.age);
+    // alternatively, can use scanf.
+    // scanf is more specialized, it always reads from stdin
+    int rc = scanf("%d", &you.age);
     // check return code
     check(rc > 0, "You have to enter a number.");
 
