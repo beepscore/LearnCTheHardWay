@@ -5,20 +5,20 @@ const char *MY_NAME = "Zed A. Shaw";
 
 void scope_demo(int count)
 {
-    log_info("count is: %d", count);
+    log_info("count parameter is: %d", count);
 
     if (count > 10) {
         // best practice- don't "shadow" a function argument
         // by declaring a local variable with the same name.
         int count = 100; // BAD! BUGS!
-        log_info("count in this scope is %d", count);
+        log_info("count local variable in this scope is %d", count);
     }
 
-    log_info("count is at exit: %d", count);
+    log_info("count parameter is at exit: %d", count);
 
+    // this changes function parameter value locally, but not for caller
     count = 3000;
-
-    log_info("count after assign: %d", count);
+    log_info("count parameter after assign: %d", count);
 }
 
 int main(int argc, char *argv[])
