@@ -8,6 +8,8 @@ void scope_demo(int count)
     log_info("count is: %d", count);
 
     if (count > 10) {
+        // best practice- don't "shadow" a function argument
+        // by declaring a local variable with the same name.
         int count = 100; // BAD! BUGS!
         log_info("count in this scope is %d", count);
     }
