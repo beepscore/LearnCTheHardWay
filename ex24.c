@@ -28,6 +28,12 @@ int main(int argc, char *argv[])
 
     printf("What's your First Name? ");
     // get string from stdin, make sure to not overflow buffer
+    // don't use gets, it doesn't know buffer size and can easily corrupt memory.
+    // in = gets(you.first_name);
+    // OS X terminal warns-
+    // warning: this program uses gets(), which is unsafe.
+    // running program shows
+    // errno: Inappropriate ioctl for device
     in = fgets(you.first_name, MAX_DATA-1, stdin);
     // check macro requires function must have error: label
     check(NULL != in, "Failed to read first name.");
