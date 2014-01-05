@@ -2,6 +2,7 @@
 #include "ex22.h"
 #include "dbg.h"
 
+// scope is global
 int THE_SIZE = 1000;
 
 // Here static scopes the variable to this file.
