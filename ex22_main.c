@@ -25,6 +25,15 @@ void scope_demo(int count)
     // This changes function parameter value locally, but not for caller.
     // If function scope_demo had a parameter that pointed to count "count_ptr",
     // then it could dereference the pointer and set the value of count in the caller's scope.
+    // Extra Credit - Research pass by value versus pass by reference
+    // C is pass by value.
+    // http://stackoverflow.com/questions/2229498/passing-by-reference-in-c
+    // Ruby (see nice diagrams!)
+    // http://stackoverflow.com/questions/1872110/is-ruby-pass-by-reference-or-by-value
+    // Python is pass by value, it passes the value of a reference!
+    // http://stackoverflow.com/questions/986006/python-how-do-i-pass-a-variable-by-reference?rq=1
+    // Java is pass by value
+    // http://stackoverflow.com/questions/40480/is-java-pass-by-reference?rq=1
     count = 3000;
     log_info("count parameter after assign: %d", count);
 }
