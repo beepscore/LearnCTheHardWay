@@ -41,3 +41,32 @@ http://c.learncodethehardway.org/book/ex28.html
 ## try loading a .so that is not there
     c-skeleton$ ./build/ex29 ./build/lib_not_there.so foo bar
     [ERROR] (./src/ex29.c:25:main: errno: No such file or directory) Failed to open the library ./build/lib_not_there.so: dlopen(./build/lib_not_there.so, 2): image not found
+
+## run make
+➜  c-skeleton git:(master) ✗ make
+cc -g -O2 -Wall -Wextra -Isrc -rdynamic -DNDEBUG  -fPIC   -c -o src/ex29.o src/ex29.c
+clang: warning: argument unused during compilation: '-rdynamic'
+cc -g -O2 -Wall -Wextra -Isrc -rdynamic -DNDEBUG  -fPIC   -c -o src/libex29.o src/libex29.c
+clang: warning: argument unused during compilation: '-rdynamic'
+src/libex29.c:36:33: warning: unused parameter 'msg' [-Wunused-parameter]
+int fail_on_purpose(const char *msg)
+                                ^
+1 warning generated.
+ar rcs build/libYOUR_LIBRARY.a src/ex29.o src/libex29.o
+ranlib build/libYOUR_LIBRARY.a
+cc -shared -o build/libYOUR_LIBRARY.so src/ex29.o src/libex29.o
+# run shell script to run tests
+sh ./tests/runtests.sh
+Running unit tests:
+
+## compile dynamic library on OS X
+http://stackoverflow.com/questions/885451/makefile-for-shared-libraries?rq=1
+http://stackoverflow.com/questions/2339679/what-are-the-differences-between-so-and-dylib-on-osx
+http://stackoverflow.com/questions/14173260/creating-shared-libraries-in-c-for-osx
+
+### -rdynamic flag not supported on OSX
+http://lists.apple.com/archives/unix-porting/2005/Feb/msg00025.html
+Answer:
+Just drop the flag. On some systems it ensures that the executable has it's
+global symbols put into the symbol table. This is already the default behavior on darwin.
+
