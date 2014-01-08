@@ -27,7 +27,9 @@ dev: all
 $(TARGET): CFLAGS += -fPIC
 $(TARGET): build $(OBJECTS)
 	ar rcs $@ $(OBJECTS)
-	ranlib $@
+	# don't use ranlib
+	# http://stackoverflow.com/questions/11093600/when-making-a-library-on-unix-is-anything-but-ar-rcs-necessary
+	# ranlib $@
 
 $(SO_TARGET): $(TARGET) $(OBJECTS)
 	$(CC) -shared -o $@ $(OBJECTS)
