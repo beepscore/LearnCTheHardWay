@@ -12,7 +12,7 @@ TEST_SRC=$(wildcard tests/*_tests.c)
 # list of test files, using TEST_SRC file list, deleting .c extension
 TESTS=$(patsubst %.c,%,$(TEST_SRC))
 
-TARGET=build/libYOUR_LIBRARY.a
+TARGET=build/libex29.a
 SO_TARGET=$(patsubst %.a,%.so,$(TARGET))
 
 # The Target Build
